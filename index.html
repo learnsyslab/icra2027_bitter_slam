@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BitterSLAM · ICRA 2027 Workshop</title>
+<meta name="description" content="Has the Bitter Lesson Finally Come for SLAM? Probabilistic State Estimation in the Era of Foundation Models. Full-day workshop at ICRA 2027, Seoul.">
+<meta property="og:title" content="Has the Bitter Lesson Finally Come for SLAM? · ICRA 2027 Workshop">
+<meta property="og:description" content="Two motions, two structured debates, one audience vote. Probabilistic state estimation in the era of foundation models.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050507;
+    --bg-2: #0b0b0e;
+    --card: #121217;
+    --card-2: #17171d;
+    --line: #23232b;
+    --ink: #f2f2f5;
+    --muted: #9b9ba8;
+    --dim: #6b6b78;
+    --teal: #5eead4;
+    --amber: #f59e0b;
+    --pink: #f472b6;
+    --violet: #a78bfa;
+    --prop: #38bdf8;
+    --opp: #fb7185;
+    --max: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 720px) { .wrap { padding: 0 28px; } }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+
+  /* ---------- Nav ---------- */
+  nav.top { position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: background .3s, border-color .3s; border-bottom: 1px solid transparent; }
+  nav.top.solid { background: rgba(5,5,7,.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-color: var(--line); }
+  nav.top .wrap { display: flex; align-items: center; gap: 22px; height: 60px; }
+  nav.top .brand { font-weight: 800; letter-spacing: -.01em; margin-right: auto; white-space: nowrap; }
+  nav.top .brand span { color: var(--teal); }
+  nav.top .links { display: flex; gap: 22px; overflow-x: auto; scrollbar-width: none; }
+  nav.top .links::-webkit-scrollbar { display: none; }
+  nav.top .links a { color: rgba(255,255,255,.72); font-size: 14px; font-weight: 500; white-space: nowrap; }
+  nav.top .links a:hover { color: #fff; }
+  @media (max-width: 760px) { nav.top .links a.opt { display: none; } nav.top .links { gap: 16px; } }
+
+  /* ---------- Hero ---------- */
+  header.hero { position: relative; height: 100vh; min-height: 640px; max-height: 980px; overflow: hidden; }
+  header.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  header.hero .shade { position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(120% 80% at 70% 40%, transparent 30%, rgba(5,5,7,.55) 75%),
+                linear-gradient(180deg, rgba(5,5,7,.55) 0%, rgba(5,5,7,0) 18%, rgba(5,5,7,0) 45%, rgba(5,5,7,.92) 88%, var(--bg) 100%); }
+  header.hero .content { position: absolute; left: 0; right: 0; bottom: 56px; z-index: 2; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 999px; font-size: 13px; color: rgba(255,255,255,.88); }
+  .pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 10px var(--teal); display: inline-block; }
+  header.hero h1 { font-size: clamp(36px, 6.4vw, 76px); line-height: 1.02; letter-spacing: -.03em; font-weight: 800; margin: 18px 0 14px; max-width: 900px; }
+  header.hero h1 em { font-style: normal; background: linear-gradient(90deg, var(--teal), var(--amber)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  header.hero p.sub { font-size: clamp(17px, 2vw, 21px); color: rgba(255,255,255,.76); max-width: 680px; margin: 0 0 26px; }
+  .btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px; font-size: 15px; font-weight: 600; transition: transform .15s, background .2s; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.primary { background: #fff; color: #000; }
+  .btn.glass { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.26); color: #fff; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .btn.glass:hover { background: rgba(255,255,255,.14); }
+  .legend { position: absolute; right: 28px; top: 84px; z-index: 2; display: grid; gap: 6px; font-size: 12px; color: rgba(255,255,255,.62); background: rgba(5,5,7,.45); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; padding: 10px 12px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .legend div { display: flex; align-items: center; gap: 8px; }
+  .legend b { display: inline-block; width: 14px; height: 2px; }
+  .legend .st { font-family: "JetBrains Mono", monospace; color: var(--teal); font-size: 11px; margin-top: 4px; }
+  @media (max-width: 760px) { .legend { display: none; } header.hero .content { bottom: 36px; } }
+
+  /* ---------- Sections ---------- */
+  section { padding: 96px 0; }
+  section.alt { background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .eyebrow { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+  h2 { font-size: clamp(28px, 4vw, 44px); line-height: 1.1; letter-spacing: -.02em; margin: 0 0 18px; font-weight: 800; }
+  .lead { font-size: 18px; color: var(--muted); max-width: 760px; margin: 0 0 14px; }
+  .lead strong { color: var(--ink); font-weight: 600; }
+  @media (max-width: 720px) { section { padding: 72px 0; } }
+
+  /* About */
+  .about-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 48px; align-items: start; }
+  @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .question { background: linear-gradient(160deg, var(--card-2), var(--card)); border: 1px solid var(--line); border-radius: 18px; padding: 28px; position: relative; overflow: hidden; }
+  .question::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--amber)); }
+  .question .q { font-size: 23px; line-height: 1.3; font-weight: 700; letter-spacing: -.01em; margin: 8px 0 14px; }
+  .question p { color: var(--muted); margin: 0; font-size: 15px; }
+  .shifts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 30px; }
+  @media (max-width: 640px) { .shifts { grid-template-columns: 1fr; } }
+  .shift { border: 1px solid var(--line); border-radius: 14px; padding: 16px; background: var(--card); }
+  .shift .k { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: .08em; }
+  .shift .v { font-weight: 600; margin-top: 4px; font-size: 15px; }
+  .shift small { color: var(--muted); font-size: 13px; display: block; margin-top: 2px; }
+
+  /* Debates */
+  #debates { position: relative; overflow: hidden; }
+  #debates::before { content: ""; position: absolute; inset: -20% -10% auto -10%; height: 70%; background: radial-gradient(50% 60% at 25% 30%, rgba(56,189,248,.10), transparent 70%), radial-gradient(50% 60% at 80% 30%, rgba(251,113,133,.10), transparent 70%); pointer-events: none; }
+  .debate-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; position: relative; }
+  .moderator { font-size: 14px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; background: var(--card); }
+  .moderator b { color: var(--ink); }
+  .motion { position: relative; border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(180deg, var(--card-2), var(--card)); margin-bottom: 26px; overflow: hidden; }
+  .motion-top { padding: 30px 30px 24px; display: grid; grid-template-columns: auto 1fr auto; gap: 22px; align-items: start; }
+  @media (max-width: 720px) { .motion-top { grid-template-columns: 1fr; gap: 12px; padding: 24px 20px 20px; } }
+  .mnum { font-family: "JetBrains Mono", monospace; font-size: 54px; font-weight: 500; line-height: .9; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.35); }
+  .motion-top .label { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--dim); text-transform: uppercase; letter-spacing: .1em; }
+  .motion-top h3 { font-size: clamp(20px, 2.6vw, 27px); line-height: 1.3; margin: 6px 0 0; font-weight: 700; letter-spacing: -.01em; }
+  .motion-top h3 .thb { color: var(--muted); font-weight: 500; }
+  .when { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--muted); white-space: nowrap; border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+  .sides { display: grid; grid-template-columns: 1fr auto 1fr; border-top: 1px solid var(--line); }
+  @media (max-width: 720px) { .sides { grid-template-columns: 1fr; } .vs { padding: 8px 0 !important; border: 0 !important; } }
+  .side { padding: 24px 30px; }
+  @media (max-width: 720px) { .side { padding: 20px; } }
+  .side .who { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; }
+  .side .who i { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
+  .side.prop .who { color: var(--prop); } .side.prop .who i { background: var(--prop); }
+  .side.opp .who { color: var(--opp); } .side.opp .who i { background: var(--opp); }
+  .side p { margin: 0 0 16px; color: #d6d6de; font-size: 16px; }
+  .seats { display: flex; gap: 8px; flex-wrap: wrap; }
+  .seat { font-size: 12px; color: var(--muted); border: 1px dashed #34343f; border-radius: 8px; padding: 5px 10px; }
+  .seat.paper { border-style: solid; border-color: rgba(167,139,250,.45); color: var(--violet); }
+  .vs { display: grid; place-items: center; padding: 0 6px; font-family: "JetBrains Mono", monospace; color: var(--dim); font-size: 13px; border-left: 1px solid var(--line); border-right: 1px solid var(--line); writing-mode: vertical-rl; letter-spacing: .3em; }
+  @media (max-width: 720px) { .vs { writing-mode: horizontal-tb; } }
+  .poll { border-top: 1px solid var(--line); padding: 20px 30px 26px; display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
+  @media (max-width: 720px) { .poll { grid-template-columns: 1fr; padding: 18px 20px 22px; } }
+  .poll .lbl { font-size: 13px; color: var(--muted); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  .bar { height: 34px; border-radius: 10px; overflow: hidden; display: flex; background: #1c1c23; font-size: 13px; font-weight: 600; position: relative; }
+  .bar .p { background: linear-gradient(90deg, #0369a1, var(--prop)); display: flex; align-items: center; padding-left: 12px; color: #021a2b; transition: width 1.4s cubic-bezier(.2,.8,.2,1); }
+  .bar .o { background: linear-gradient(90deg, var(--opp), #be123c); display: flex; align-items: center; justify-content: flex-end; padding-right: 12px; color: #2b0510; transition: width 1.4s cubic-bezier(.2,.8,.2,1); }
+  .bar.pending::after { content: "Pre-workshop poll opens with the call for papers"; position: absolute; inset: 0; display: grid; place-items: center; color: rgba(255,255,255,.85); font-weight: 500; font-size: 13px; background: repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 10px, rgba(255,255,255,.06) 10px 20px); backdrop-filter: blur(1px); }
+  .poll .btn { padding: 10px 18px; font-size: 14px; }
+
+  .format { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 34px; }
+  @media (max-width: 900px) { .format { grid-template-columns: repeat(2, 1fr); } }
+  .fstep { border: 1px solid var(--line); background: var(--card); border-radius: 14px; padding: 16px; position: relative; }
+  .fstep .t { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--teal); }
+  .fstep .n { font-weight: 600; margin-top: 4px; font-size: 15px; }
+  .fstep small { color: var(--muted); font-size: 13px; }
+
+  /* Program */
+  .program { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 12px; }
+  @media (max-width: 900px) { .program { grid-template-columns: 1fr; } }
+  .phase h3 { font-size: 18px; margin: 0 0 4px; }
+  .phase .ph { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--dim); margin-bottom: 14px; text-transform: uppercase; letter-spacing: .1em; }
+  .slot { display: grid; grid-template-columns: 112px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .slot .tm { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--muted); }
+  .slot .ti { font-weight: 500; }
+  .slot .ti small { display: block; color: var(--dim); font-size: 13px; font-weight: 400; }
+  .slot.brk .ti { color: var(--muted); font-weight: 400; font-style: italic; }
+  .slot.hl { background: linear-gradient(90deg, rgba(94,234,212,.08), transparent); border-left: 2px solid var(--teal); padding-left: 12px; margin-left: -14px; }
+  .slot.hl .ti { color: #fff; font-weight: 700; }
+  .slot .tag { display: inline-block; font-size: 11px; font-family: "JetBrains Mono", monospace; padding: 1px 7px; border-radius: 5px; margin-left: 6px; vertical-align: 2px; }
+  .tag.m1, .tag.m2 { background: rgba(94,234,212,.12); color: var(--teal); }
+  .tag.vote { background: rgba(245,158,11,.14); color: var(--amber); }
+  .note { color: var(--muted); font-size: 14px; margin-top: 18px; }
+
+  /* People */
+  .people { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+  .person { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px 18px; text-align: center; transition: border-color .2s, transform .2s; }
+  .person:hover { border-color: #3a3a46; transform: translateY(-2px); }
+  .avatar { width: 92px; height: 92px; border-radius: 50%; margin: 0 auto 14px; display: grid; place-items: center; font-weight: 700; font-size: 26px; color: #fff; object-fit: cover; }
+  .person .nm { font-weight: 600; }
+  .person .af { color: var(--muted); font-size: 14px; }
+  .person .role { display: inline-block; margin-top: 8px; font-size: 11px; font-family: "JetBrains Mono", monospace; color: var(--teal); border: 1px solid rgba(94,234,212,.3); border-radius: 6px; padding: 1px 8px; }
+  .subhead { font-size: 15px; color: var(--muted); margin: -6px 0 26px; }
+
+  /* CfP */
+  .cfp-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; }
+  @media (max-width: 900px) { .cfp-grid { grid-template-columns: 1fr; } }
+  ul.topics { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 10px; }
+  ul.topics li { display: flex; gap: 12px; color: #d6d6de; }
+  ul.topics li::before { content: ""; flex: 0 0 8px; height: 8px; margin-top: 9px; border: 1.5px solid var(--teal); border-radius: 50%; }
+  .card { background: linear-gradient(160deg, var(--card-2), var(--card)); border: 1px solid var(--line); border-radius: 18px; padding: 24px; }
+  .card h3 { margin: 0 0 8px; font-size: 18px; }
+  .card p { color: var(--muted); margin: 0 0 12px; font-size: 15px; }
+  .perk { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-top: 1px solid var(--line); }
+  .perk:first-of-type { border-top: 0; }
+  .perk .ic { flex: 0 0 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: rgba(167,139,250,.12); color: var(--violet); font-size: 16px; }
+  .perk b { display: block; font-size: 15px; }
+  .perk span { color: var(--muted); font-size: 14px; }
+  .dates { list-style: none; padding: 0; margin: 0; }
+  .dates li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px dashed var(--line); font-size: 15px; }
+  .dates li span:last-child { font-family: "JetBrains Mono", monospace; color: var(--muted); white-space: nowrap; }
+
+  /* Footer */
+  footer { padding: 48px 0 56px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  footer a { color: var(--ink); }
+  footer a:hover { color: var(--teal); }
+
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<nav class="top" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">Bitter<span>SLAM</span></a>
+    <div class="links">
+      <a href="#about" class="opt">About</a>
+      <a href="#debates">Debates</a>
+      <a href="#program">Program</a>
+      <a href="#speakers">Speakers</a>
+      <a href="#cfp">Call for Papers</a>
+      <a href="#organizers" class="opt">Organizers</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="shade"></div>
+  <div class="legend" aria-hidden="true">
+    <div><b style="background:#f472b6"></b>trajectory</div>
+    <div><b style="background:#5eead4"></b>pose graph · 3σ</div>
+    <div><b style="background:#f59e0b"></b>landmark factors</div>
+    <div class="st" id="state">exploring · drift ↑</div>
+  </div>
+  <div class="content">
+    <div class="wrap">
+      <span class="pill"><i></i>ICRA 2027 Full-Day Workshop · May 2027 · COEX, Seoul</span>
+      <h1>Has the Bitter Lesson finally come for <em>SLAM?</em></h1>
+      <p class="sub">Probabilistic state estimation in the era of foundation models. Two motions, two structured debates, and a room that votes before and after.</p>
+      <div class="btns">
+        <a class="btn primary" href="#debates">See the motions</a>
+        <a class="btn glass" href="#cfp">Submit a paper</a>
+        <a class="btn glass" href="#program">Program</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <div class="eyebrow">Why this workshop</div>
+      <h2>The front end lost. Is the back end next?</h2>
+      <p class="lead">Deep learning has brought Sutton's Bitter Lesson to many fields, but for SLAM the verdict is still split. Hand-crafted features, tuned RANSAC and bag-of-words loop closure have given way to learned alternatives. The <strong>probabilistic back end</strong> has not, and it can claim to be exactly the kind of general method that scales with compute.</p>
+      <p class="lead">Geometric foundation models are now default front ends, semantic embeddings populate maps, and vision-language-action policies bypass state estimation entirely. There is broad consensus that learning and probabilistic inference should be combined, but <strong>no consensus on what that combination means</strong>.</p>
+      <div class="shifts">
+        <div class="shift"><div class="k">Front end</div><div class="v">Learned</div><small>DUSt3R, MASt3R as default</small></div>
+        <div class="shift"><div class="k">Maps</div><div class="v">Semantic</div><small>CLIP / DINO embeddings</small></div>
+        <div class="shift"><div class="k">Policies</div><div class="v">Stateless?</div><small>VLAs skip estimation</small></div>
+      </div>
+    </div>
+    <div class="question reveal">
+      <div class="eyebrow" style="margin-bottom:0">The core question</div>
+      <div class="q">When a learned model's output enters an inference problem, what is it as a measurement?</div>
+      <p>Estimation theory was built for sensors whose errors can be characterized. Foundation models produce strong, structured and correlated errors with no comparable characterization, and that decides whether introspection and certification remain possible.</p>
+      <p style="margin-top:14px;color:var(--ink)">Our position: probabilistic estimation becomes <em>more</em> necessary, not less. This position is falsifiable, so we put it to a vote.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DEBATES -->
+<section id="debates" class="alt">
+  <div class="wrap">
+    <div class="debate-head reveal">
+      <div>
+        <div class="eyebrow">The debates</div>
+        <h2 style="margin-bottom:8px">Two motions. Two sides. One vote.</h2>
+        <p class="lead" style="margin:0">Leading researchers argue for and against each motion. The audience, in the room and online, votes before and after. The shift is the result.</p>
+      </div>
+      <div class="moderator">Moderated by <b>Michael Milford</b> · QUT</div>
+    </div>
+
+    <article class="motion reveal">
+      <div class="motion-top">
+        <div class="mnum">M1</div>
+        <div>
+          <div class="label">Motion 1 · Measurement</div>
+          <h3><span class="thb">This house believes that</span> the output of a foundation model admits a valid probabilistic measurement model, and estimation theory extends to it.</h3>
+        </div>
+        <div class="when">14:00–15:00</div>
+      </div>
+      <div class="sides">
+        <div class="side prop">
+          <div class="who"><i></i>Proposition</div>
+          <p>Foundation-model outputs can be given a valid likelihood, and the existing machinery of estimation theory carries over.</p>
+          <div class="seats"><span class="seat">Senior researcher</span><span class="seat">Early-career researcher</span></div>
+        </div>
+        <div class="vs">VERSUS</div>
+        <div class="side opp">
+          <div class="who"><i></i>Opposition</div>
+          <p>The output of a foundation model cannot be treated as a measurement in the classical probabilistic sense.</p>
+          <div class="seats"><span class="seat">Senior researcher</span><span class="seat paper">Seat for an accepted paper's author</span></div>
+        </div>
+      </div>
+      <div class="poll">
+        <div>
+          <div class="lbl"><span>Community stance on M1</span><span class="mono">pre-workshop poll</span></div>
+          <div class="bar pending"><div class="p" style="width:50%">For</div><div class="o" style="width:50%">Against</div></div>
+        </div>
+        <a class="btn glass" href="#cfp">Argue it on stage →</a>
+      </div>
+    </article>
+
+    <article class="motion reveal">
+      <div class="motion-top">
+        <div class="mnum">M2</div>
+        <div>
+          <div class="label">Motion 2 · Scale vs. principle</div>
+          <h3><span class="thb">This house believes that</span> out-of-distribution failures of learned perception will be solved by more data and scale before they are solved by estimation theory.</h3>
+        </div>
+        <div class="when">15:30–16:30</div>
+      </div>
+      <div class="sides">
+        <div class="side prop">
+          <div class="who"><i></i>Proposition</div>
+          <p>Data and scale will close the out-of-distribution gap first, just as they did for the front end.</p>
+          <div class="seats"><span class="seat">Senior researcher</span><span class="seat paper">Seat for an accepted paper's author</span></div>
+        </div>
+        <div class="vs">VERSUS</div>
+        <div class="side opp">
+          <div class="who"><i></i>Opposition</div>
+          <p>Robustness to out-of-distribution conditions requires the principled modeling of estimation theory, which data and scale cannot replace.</p>
+          <div class="seats"><span class="seat">Senior researcher</span><span class="seat">Early-career researcher</span></div>
+        </div>
+      </div>
+      <div class="poll">
+        <div>
+          <div class="lbl"><span>Community stance on M2</span><span class="mono">pre-workshop poll</span></div>
+          <div class="bar pending"><div class="p" style="width:50%">For</div><div class="o" style="width:50%">Against</div></div>
+        </div>
+        <a class="btn glass" href="#cfp">Argue it on stage →</a>
+      </div>
+    </article>
+
+    <div class="format reveal">
+      <div class="fstep"><div class="t">01 · vote</div><div class="n">Pre-debate vote</div><small>Room and online</small></div>
+      <div class="fstep"><div class="t">02 · 4 × 6 min</div><div class="n">Opening statements</div><small>Two per side</small></div>
+      <div class="fstep"><div class="t">03 · 2 × 3 min</div><div class="n">Rebuttals</div><small>One per side</small></div>
+      <div class="fstep"><div class="t">04 · open</div><div class="n">Audience discussion</div><small>Live Q&amp;A platform</small></div>
+      <div class="fstep"><div class="t">05 · vote</div><div class="n">Post-debate vote</div><small>The shift is the result</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM -->
+<section id="program">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Program · tentative</div>
+      <h2>Morning: the evidence. Afternoon: the verdict.</h2>
+      <p class="lead">Separating evidence from debate gives everyone time to argue over posters and lunch before voting. All times KST (UTC+9). Streamed live via Zoom, with remote voting and questions.</p>
+    </div>
+    <div class="program reveal">
+      <div class="phase">
+        <h3>Phase 1 · Gathering the evidence</h3>
+        <div class="ph">Morning</div>
+        <div class="slot hl"><span class="tm">08:45–09:00</span><span class="ti">Welcome, motions, opening poll <span class="tag vote">vote</span></span></div>
+        <div class="slot"><span class="tm">09:00–09:30</span><span class="ti">Invited talk 1<small>25 min + 5 min Q&amp;A</small></span></div>
+        <div class="slot"><span class="tm">09:30–10:00</span><span class="ti">Invited talk 2</span></div>
+        <div class="slot"><span class="tm">10:00–10:30</span><span class="ti">Invited talk 3</span></div>
+        <div class="slot"><span class="tm">10:30–10:50</span><span class="ti">Paper pitches<small>6 × 3 min</small></span></div>
+        <div class="slot brk"><span class="tm">10:50–11:30</span><span class="ti">Coffee break, poster session</span></div>
+        <div class="slot"><span class="tm">11:30–12:00</span><span class="ti">Invited talk 4</span></div>
+        <div class="slot"><span class="tm">12:00–12:30</span><span class="ti">Invited talk 5</span></div>
+        <div class="slot brk"><span class="tm">12:30–14:00</span><span class="ti">Lunch, poster session</span></div>
+      </div>
+      <div class="phase">
+        <h3>Phase 2 · Testing the position</h3>
+        <div class="ph">Afternoon</div>
+        <div class="slot hl"><span class="tm">14:00–15:00</span><span class="ti">Debate on Motion 1 <span class="tag m1">M1</span><small>Measurement</small></span></div>
+        <div class="slot brk"><span class="tm">15:00–15:30</span><span class="ti">Coffee break, posters</span></div>
+        <div class="slot hl"><span class="tm">15:30–16:30</span><span class="ti">Debate on Motion 2 <span class="tag m2">M2</span><small>Scale vs. principle</small></span></div>
+        <div class="slot"><span class="tm">16:30–17:15</span><span class="ti">Panel with all speakers<small>Opens with the vote shifts</small></span></div>
+        <div class="slot hl"><span class="tm">17:15–17:30</span><span class="ti">Best paper award, closing poll <span class="tag vote">vote</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEAKERS -->
+<section id="speakers" class="alt">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Invited speakers</div>
+      <h2>Speakers</h2>
+      <p class="subhead">From classical estimation to end-to-end learned systems. Talk titles to be announced.</p>
+    </div>
+    <!-- To add a photo: put a square image in images/ and replace the avatar div with
+         <img class="avatar" src="images/name.jpg" alt="Full Name"> -->
+    <div class="people reveal">
+      <div class="person"><div class="avatar" data-h="200">AD</div><div class="nm">Andrew Davison</div><div class="af">Imperial College London</div></div>
+      <div class="person"><div class="avatar" data-h="160">WB</div><div class="nm">Wolfram Burgard</div><div class="af">UTN Nuremberg</div></div>
+      <div class="person"><div class="avatar" data-h="280">MC</div><div class="nm">Margarita Chli</div><div class="af">ETH Zurich / Univ. of Cyprus</div></div>
+      <div class="person"><div class="avatar" data-h="20">SS</div><div class="nm">Sebastian Scherer</div><div class="af">Carnegie Mellon University</div></div>
+      <div class="person"><div class="avatar" data-h="330">HO</div><div class="nm">Helen Oleynikova</div><div class="af">Exclaim Robotics</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CFP -->
+<section id="cfp">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Call for papers</div>
+      <h2>Bring evidence. Take a seat on stage.</h2>
+      <p class="lead">We invite short papers of up to <strong>four pages</strong> providing evidence for or against either motion. Position papers, negative results and failure-case analyses are explicitly welcome. Submissions are non-archival and reviewed double-blind by at least two reviewers. Authors may indicate which motion their work supports.</p>
+    </div>
+    <div class="cfp-grid">
+      <div class="reveal">
+        <h3 style="margin:18px 0 0;font-size:18px">Topics include, but are not limited to</h3>
+        <ul class="topics">
+          <li>Integrating foundation-model outputs (poses, depth, correspondences) into SLAM</li>
+          <li>Characterizing uncertainty, calibration and error correlation of learned perception for state estimation</li>
+          <li>Semantic and language-embedded maps for robot perception</li>
+          <li>Implicit, end-to-end learned state versus explicit state estimation for navigation and control</li>
+          <li>Introspection and out-of-distribution failure detection</li>
+          <li>Consistency, observability and safety guarantees of estimators with learned inputs</li>
+          <li>Benchmarks and datasets comparing learned and probabilistic approaches to SLAM</li>
+        </ul>
+      </div>
+      <div class="reveal" style="display:grid;gap:16px;align-content:start">
+        <div class="card">
+          <div class="perk"><div class="ic">🎤</div><div><b>Debate seat</b><span>One seat per motion goes to the author of an accepted paper, debating leading researchers.</span></div></div>
+          <div class="perk"><div class="ic">⚡</div><div><b>Six paper pitches</b><span>3-minute orals in the morning session.</span></div></div>
+          <div class="perk"><div class="ic">🏆</div><div><b>Best paper award</b><span>Presented at the closing session.</span></div></div>
+          <div class="perk"><div class="ic">🖼️</div><div><b>Posters for all</b><span>Every accepted paper is presented as a poster.</span></div></div>
+        </div>
+        <div class="card" id="dates">
+          <h3>Important dates</h3>
+          <ul class="dates">
+            <li><span>Submission deadline</span><span>TBA</span></li>
+            <li><span>Notification</span><span>TBA</span></li>
+            <li><span>Camera-ready</span><span>TBA</span></li>
+            <li><span>Workshop</span><span>May 2027</span></li>
+          </ul>
+          <p style="margin:14px 0 0;font-size:13px">Deadlines are 23:59 AoE. Submission platform to be announced.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORGANIZERS -->
+<section id="organizers" class="alt">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Organizers</div>
+      <h2>Organizing team</h2>
+      <p class="subhead">Four continents, academia and industry, from full professor to doctoral researcher.</p>
+    </div>
+    <div class="people reveal">
+      <div class="person"><div class="avatar" data-h="170">SL</div><div class="nm">Stefan Leutenegger</div><div class="af">ETH Zurich</div><span class="role">Host organizer</span></div>
+      <div class="person"><div class="avatar" data-h="300">AS</div><div class="nm">Angela P. Schoellig</div><div class="af">TU Munich</div></div>
+      <div class="person"><div class="avatar" data-h="40">MM</div><div class="nm">Michael Milford</div><div class="af">QUT</div><span class="role">Debate moderator</span></div>
+      <div class="person"><div class="avatar" data-h="0">FZ</div><div class="nm">Fu Zhang</div><div class="af">University of Hong Kong</div></div>
+      <div class="person"><div class="avatar" data-h="210">SZ</div><div class="nm">Shibo Zhao</div><div class="af">Amazon</div></div>
+      <div class="person"><div class="avatar" data-h="260">CL</div><div class="nm">Cédric Le Gentil</div><div class="af">ETH Zurich</div></div>
+      <div class="person"><div class="avatar" data-h="120">AG</div><div class="nm">Abhishek Goudar</div><div class="af">University of Toronto</div></div>
+      <div class="person"><div class="avatar" data-h="180">HZ</div><div class="nm">Haoming Zhang</div><div class="af">TU Munich</div></div>
+      <div class="person"><div class="avatar" data-h="140">SB</div><div class="nm">Sebastián Barbas Laina</div><div class="af">TU Munich</div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>BitterSLAM · Workshop at <a href="https://2027.ieee-icra.org/">ICRA 2027</a>, Seoul, South Korea</div>
+    <div>Contact: <a href="mailto:haoming.zhang@tum.de">haoming.zhang@tum.de</a></div>
+  </div>
+</footer>
+
+<script>
+// ---------- Avatar colors ----------
+document.querySelectorAll('.avatar[data-h]').forEach(el => {
+  const h = +el.dataset.h;
+  el.style.background = `linear-gradient(140deg, hsl(${h} 70% 42%), hsl(${(h + 50) % 360} 70% 28%))`;
+});
+
+// ---------- Nav background on scroll ----------
+const nav = document.getElementById('nav');
+const onScroll = () => nav.classList.toggle('solid', window.scrollY > 40);
+window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+// ---------- Reveal on scroll ----------
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 }) : null;
+document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+
+// ---------- Hero: point cloud + factor graph + loop closure ----------
+(function () {
+  const canvas = document.getElementById('scene');
+  const ctx = canvas.getContext('2d');
+  const stateEl = document.getElementById('state');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W, H, dpr;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize(); window.addEventListener('resize', resize);
+
+  // Deterministic random so the scene looks the same every load
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+  // --- Point cloud ---
+  const pts = [];
+  for (let i = 0; i < 2600; i++) pts.push([(rnd() - .5) * 18, -1.6 + rnd() * .05, (rnd() - .5) * 18, 0]);
+  const boxes = [[-6, -4.5, 2, 2.2, 3.8], [3.2, -6, 2.6, 1.6, 5.2], [5, 2.6, 1.6, 3.2, 2.8], [-4.6, 4.2, 3.2, 1.6, 4.2], [-0.5, -8, 4.2, 1, 2.6], [-8, -0.5, 1, 4.2, 3.2], [7, -2.5, 1.2, 2, 4]];
+  boxes.forEach(b => {
+    for (let i = 0; i < 1000; i++) {
+      const f = Math.floor(rnd() * 4), u = rnd(); let x, z;
+      if (f === 0) { x = b[0]; z = b[1] + u * b[3]; } else if (f === 1) { x = b[0] + b[2]; z = b[1] + u * b[3]; }
+      else if (f === 2) { x = b[0] + u * b[2]; z = b[1]; } else { x = b[0] + u * b[2]; z = b[1] + b[3]; }
+      pts.push([x, -1.6 + rnd() * b[4], z, 1]);
+    }
+  });
+  for (let k = 0; k < 10; k++) {
+    const tx = (rnd() - .5) * 13, tz = (rnd() - .5) * 13;
+    if (Math.hypot(tx, tz) < 3.6) continue;
+    for (let i = 0; i < 240; i++) { const a = rnd() * 6.283, r = Math.sqrt(rnd()) * .95, h = rnd() * 1.5; pts.push([tx + Math.cos(a) * r * (1 - h / 2), .1 + h, tz + Math.sin(a) * r * (1 - h / 2), 2]); }
+  }
+
+  // --- Trajectory (drone loop), poses, landmarks ---
+  const TN = 240, traj = [];
+  for (let i = 0; i <= TN; i++) {
+    const t = i / TN * Math.PI * 2;
+    traj.push([Math.cos(t) * 3.2 + Math.sin(2 * t) * .7, .9 + .35 * Math.sin(3 * t), Math.sin(t) * 2.6]);
+  }
+  const PSTEP = 12, poses = [];
+  for (let i = 0; i < TN; i += PSTEP) poses.push(i);
+  const NP = poses.length;
+  // landmarks = building corners + tree tops
+  const lms = [];
+  boxes.forEach(b => { lms.push([b[0], -1.6 + b[4] * .7, b[1]]); lms.push([b[0] + b[2], -1.6 + b[4] * .5, b[1] + b[3]]); });
+  // landmark factors: each pose links to 2 nearest landmarks
+  const lmEdges = poses.map(pi => {
+    const p = traj[pi];
+    return lms.map((l, j) => [Math.hypot(p[0] - l[0], p[2] - l[2]), j]).sort((a, b) => a[0] - b[0]).slice(0, 2).map(x => x[1]);
+  });
+
+  // --- Camera ---
+  let ang = 0.6;
+  function proj(p) {
+    const ca = Math.cos(ang), sa = Math.sin(ang);
+    const x = p[0] * ca - p[2] * sa, z = p[0] * sa + p[2] * ca, y = p[1];
+    const tilt = .44, ct = Math.cos(tilt), st = Math.sin(tilt);
+    const y2 = y * ct - z * st, z2 = y * st + z * ct + 14;
+    const f = (W > 760 ? Math.min(W * .66, H * 1.0) : Math.min(W * .95, H * 1.25)) / z2;
+    const cx = W > 760 ? W * .64 : W * .5, cy = W > 760 ? H * .44 : H * .36;
+    return [cx + x * f, cy - y2 * f, z2, f];
+  }
+
+  // --- Animation state machine ---
+  // phase 0: explore (head moves, sigma grows); phase 1: loop closure flash; phase 2: optimized (sigma collapses); phase 3: hold
+  const EXPLORE = 14000, CLOSE = 1600, SETTLE = 1600, HOLD = 3200, CYCLE = EXPLORE + CLOSE + SETTLE + HOLD;
+  let t0 = performance.now();
+  const sigmaDrift = k => .08 + .38 * (k / (NP - 1)) ** 1.3;                 // grows with distance travelled
+  const sigmaOpt = k => .07 + .1 * Math.min(k, NP - 1 - k) / (NP / 2);         // small near both ends after closure
+  const ease = x => x < .5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2;
+
+  function frame(now) {
+    const T = reduced ? EXPLORE + CLOSE + SETTLE + 10 : Math.max(0, now - t0) % CYCLE;
+    let head, phase, blend = 0;
+    if (T < EXPLORE) { phase = 0; head = Math.floor(T / EXPLORE * TN); }
+    else if (T < EXPLORE + CLOSE) { phase = 1; head = TN; }
+    else if (T < EXPLORE + CLOSE + SETTLE) { phase = 2; head = TN; blend = ease((T - EXPLORE - CLOSE) / SETTLE); }
+    else { phase = 3; head = TN; blend = 1; }
+    const label = ['exploring · drift ↑', 'loop closure detected', 'optimizing graph…', 'consistent · drift ↓'][phase];
+    if (stateEl && stateEl.textContent !== label) stateEl.textContent = label;
+
+    // background
+    ctx.fillStyle = '#050507'; ctx.fillRect(0, 0, W, H);
+
+    // point cloud
+    for (const p of pts) {
+      const q = proj(p); if (q[2] < 1) continue;
+      const a = Math.max(.25, Math.min(.95, 13 / q[2] - .1));
+      let c;
+      if (p[3] === 2) c = `rgba(52,211,153,${a * .75})`;
+      else if (p[3] === 1) { const h = (p[1] + 1.6) / 5; c = `rgba(${110 + 70 * h | 0},${130 + 40 * h | 0},255,${a})`; }
+      else c = `rgba(95,105,135,${a * .8})`;
+      ctx.fillStyle = c; ctx.fillRect(q[0], q[1], 1.6, 1.6);
+    }
+
+    // visible poses
+    const vis = poses.map((pi, k) => [pi, k]).filter(([pi]) => pi <= head);
+
+    // landmark factors
+    ctx.lineWidth = 1;
+    vis.forEach(([pi, k]) => {
+      const q = proj(traj[pi]);
+      lmEdges[k].forEach(j => {
+        const l = proj(lms[j]);
+        ctx.strokeStyle = 'rgba(245,158,11,.22)'; ctx.beginPath(); ctx.moveTo(q[0], q[1]); ctx.lineTo(l[0], l[1]); ctx.stroke();
+      });
+    });
+    // landmarks that have been observed
+    const seen = new Set(); vis.forEach(([, k]) => lmEdges[k].forEach(j => seen.add(j)));
+    seen.forEach(j => { const l = proj(lms[j]); ctx.fillStyle = '#f59e0b'; ctx.fillRect(l[0] - 3, l[1] - 3, 6, 6); });
+
+    // trajectory
+    ctx.beginPath();
+    for (let i = 0; i <= head; i++) { const q = proj(traj[i]); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }
+    ctx.strokeStyle = 'rgba(244,114,182,.85)'; ctx.lineWidth = 2; ctx.stroke();
+
+    // odometry factors between poses
+    ctx.strokeStyle = 'rgba(94,234,212,.55)'; ctx.lineWidth = 1.4;
+    for (let n = 1; n < vis.length; n++) {
+      const a = proj(traj[vis[n - 1][0]]), b = proj(traj[vis[n][0]]);
+      ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+    }
+
+    // loop closure factor
+    if (phase >= 1) {
+      const a = proj(traj[poses[0]]), b = proj(traj[poses[NP - 1]]);
+      ctx.save();
+      ctx.setLineDash([6, 5]); ctx.lineDashOffset = -now / 40;
+      const flash = phase === 1 ? .6 + .4 * Math.sin(now / 90) : .9;
+      ctx.strokeStyle = `rgba(245,158,11,${flash})`; ctx.lineWidth = 2.4;
+      ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+      ctx.restore();
+      if (phase === 1) {
+        const r = 10 + ((now / 12) % 30);
+        [a, b].forEach(p => { ctx.strokeStyle = `rgba(245,158,11,${1 - (r - 10) / 30})`; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(p[0], p[1], r, 0, 6.283); ctx.stroke(); });
+      }
+    }
+
+    // pose nodes with 3-sigma uncertainty ellipses
+    vis.forEach(([pi, k]) => {
+      const q = proj(traj[pi]);
+      const s = (1 - blend) * sigmaDrift(k) + blend * sigmaOpt(k);
+      const rx = s * q[3] * 1.4, ry = s * q[3] * .75;
+      const nx = traj[Math.min(pi + 1, TN)], dir = proj(nx);
+      const rot = Math.atan2(dir[1] - q[1], dir[0] - q[0]);
+      ctx.strokeStyle = 'rgba(94,234,212,.38)'; ctx.fillStyle = 'rgba(94,234,212,.05)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.ellipse(q[0], q[1], Math.max(rx, 2), Math.max(ry, 1.5), rot, 0, 6.283); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#5eead4'; ctx.beginPath(); ctx.arc(q[0], q[1], 3.4, 0, 6.283); ctx.fill();
+    });
+
+    // drone head
+    if (head < TN) {
+      const q = proj(traj[head]);
+      ctx.fillStyle = 'rgba(255,255,255,.18)'; ctx.beginPath(); ctx.arc(q[0], q[1], 10, 0, 6.283); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(q[0], q[1], 4.5, 0, 6.283); ctx.fill();
+    }
+
+    if (!reduced) ang += .0016;
+    if (!reduced) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
