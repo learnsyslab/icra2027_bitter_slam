@@ -30,7 +30,7 @@
     --max: 1120px;
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   body { margin: 0; background: var(--bg); color: var(--ink); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration: none; }
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
@@ -40,14 +40,14 @@
   /* ---------- Nav ---------- */
   nav.top { position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: background .3s, border-color .3s; border-bottom: 1px solid transparent; }
   nav.top.solid { background: rgba(5,5,7,.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-color: var(--line); }
-  nav.top .wrap { display: flex; align-items: center; gap: 22px; height: 60px; }
-  nav.top .brand { font-weight: 800; letter-spacing: -.01em; margin-right: auto; white-space: nowrap; }
+  nav.top .wrap { display: flex; align-items: center; gap: 24px; height: 72px; }
+  nav.top .brand { font-size: 27px; font-weight: 800; letter-spacing: -.02em; margin-right: auto; white-space: nowrap; }
   nav.top .brand span { color: var(--teal); }
-  nav.top .links { display: flex; gap: 22px; overflow-x: auto; scrollbar-width: none; }
+  nav.top .links { display: flex; gap: 24px; overflow-x: auto; scrollbar-width: none; }
   nav.top .links::-webkit-scrollbar { display: none; }
-  nav.top .links a { color: rgba(255,255,255,.72); font-size: 14px; font-weight: 500; white-space: nowrap; }
+  nav.top .links a { color: rgba(255,255,255,.72); font-size: 15px; font-weight: 500; white-space: nowrap; }
   nav.top .links a:hover { color: #fff; }
-  @media (max-width: 760px) { nav.top .links a.opt { display: none; } nav.top .links { gap: 16px; } }
+  @media (max-width: 760px) { nav.top .links a.opt { display: none; } nav.top .links { gap: 16px; } nav.top .wrap { height: 60px; gap: 16px; } nav.top .brand { font-size: 21px; } nav.top .links a { font-size: 14px; } }
 
   /* ---------- Hero ---------- */
   header.hero { position: relative; height: 100vh; min-height: 640px; max-height: 980px; overflow: hidden; }
@@ -71,6 +71,10 @@
   .legend div { display: flex; align-items: center; gap: 8px; }
   .legend b { display: inline-block; width: 14px; height: 2px; }
   .legend .st { font-family: "JetBrains Mono", monospace; color: var(--teal); font-size: 11px; margin-top: 4px; }
+  .legend .st.vla { color: var(--violet); }
+  .legend .lg { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.42); }
+  .legend .lg + div { margin-top: -2px; }
+  .legend .lg.next { margin-top: 8px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,.08); }
   @media (max-width: 760px) { .legend { display: none; } header.hero .content { bottom: 36px; } }
 
   /* ---------- Sections ---------- */
@@ -159,12 +163,16 @@
 
   /* People */
   .people { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
-  .person { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px 18px; text-align: center; transition: border-color .2s, transform .2s; }
+  .person { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px 18px; text-align: center; transition: border-color .2s, transform .2s; display: flex; flex-direction: column; align-items: center; }
   .person:hover { border-color: #3a3a46; transform: translateY(-2px); }
   .avatar { width: 92px; height: 92px; border-radius: 50%; margin: 0 auto 14px; display: grid; place-items: center; font-weight: 700; font-size: 26px; color: #fff; object-fit: cover; }
   .person .nm { font-weight: 600; }
-  .person .af { color: var(--muted); font-size: 14px; }
-  .person .role { display: inline-block; margin-top: 8px; font-size: 11px; font-family: "JetBrains Mono", monospace; color: var(--teal); border: 1px solid rgba(94,234,212,.3); border-radius: 6px; padding: 1px 8px; }
+  .person .af { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
+  .person .pos { color: var(--ink); opacity: .8; font-size: 13px; margin-top: 2px; }
+  /* Organizers: fixed five columns on wide screens so each row stays a row */
+  @media (min-width: 1000px) { .people.org-row { grid-template-columns: repeat(5, 1fr); } }
+  .people.org-row + .people.org-row { margin-top: 16px; }
+  .person .role { display: inline-block; margin-top: auto; font-size: 11px; font-family: "JetBrains Mono", monospace; color: var(--teal); border: 1px solid rgba(94,234,212,.3); border-radius: 6px; padding: 1px 8px; }
   .subhead { font-size: 15px; color: var(--muted); margin: -6px 0 26px; }
 
   /* CfP */
@@ -216,10 +224,17 @@
   <canvas id="scene" aria-hidden="true"></canvas>
   <div class="shade"></div>
   <div class="legend" aria-hidden="true">
+    <div class="lg">Probabilistic estimation</div>
     <div><b style="background:#f472b6"></b>trajectory</div>
     <div><b style="background:#5eead4"></b>pose graph · 3σ</div>
     <div><b style="background:#f59e0b"></b>landmark factors</div>
+    <div><b style="background:#7f8cff;width:6px;height:6px;margin:0 4px"></b>point features</div>
     <div class="st" id="state">exploring · drift ↑</div>
+    <div class="lg next">End-to-end policy</div>
+    <div><b style="background:#a78bfa"></b>trail · no explicit state</div>
+    <div><b style="background:transparent;border:1.5px solid #c4b5fd;width:10px;height:8px;margin:0 2px"></b>objects, not features</div>
+    <div><b style="background:#ddd6fe;width:6px;height:6px;margin:0 4px"></b>object tokens → action</div>
+    <div class="st vla">pixels + language → aₜ</div>
   </div>
   <div class="content">
     <div class="wrap">
@@ -450,16 +465,18 @@
       <h2>Organizing team</h2>
       <p class="subhead">Four continents, academia and industry, from full professor to doctoral researcher.</p>
     </div>
-    <div class="people reveal">
-      <div class="person"><div class="avatar" data-h="170">SL</div><div class="nm">Stefan Leutenegger</div><div class="af">ETH Zurich</div><span class="role">Host organizer</span></div>
-      <div class="person"><div class="avatar" data-h="300">AS</div><div class="nm">Angela P. Schoellig</div><div class="af">TU Munich</div></div>
-      <div class="person"><div class="avatar" data-h="40">MM</div><div class="nm">Michael Milford</div><div class="af">QUT</div><span class="role">Debate moderator</span></div>
-      <div class="person"><div class="avatar" data-h="0">FZ</div><div class="nm">Fu Zhang</div><div class="af">University of Hong Kong</div></div>
-      <div class="person"><div class="avatar" data-h="210">SZ</div><div class="nm">Shibo Zhao</div><div class="af">Amazon</div></div>
-      <div class="person"><div class="avatar" data-h="260">CL</div><div class="nm">Cédric Le Gentil</div><div class="af">ETH Zurich</div></div>
-      <div class="person"><div class="avatar" data-h="120">AG</div><div class="nm">Abhishek Goudar</div><div class="af">University of Toronto</div></div>
-      <div class="person"><div class="avatar" data-h="180">HZ</div><div class="nm">Haoming Zhang</div><div class="af">TU Munich</div></div>
-      <div class="person"><div class="avatar" data-h="140">SB</div><div class="nm">Sebastián Barbas Laina</div><div class="af">TU Munich</div></div>
+    <div class="people org-row reveal">
+      <div class="person"><div class="avatar" data-h="170">SL</div><div class="nm">Stefan Leutenegger</div><div class="pos">Professor</div><div class="af">ETH Zurich</div><span class="role">Host organizer</span></div>
+      <div class="person"><div class="avatar" data-h="300">AS</div><div class="nm">Angela P. Schoellig</div><div class="pos">Professor</div><div class="af">TU Munich</div><span class="role">Host organizer</span></div>
+      <div class="person"><div class="avatar" data-h="40">MM</div><div class="nm">Michael Milford</div><div class="pos">Professor</div><div class="af">QUT</div><span class="role">Debate moderator</span></div>
+      <div class="person"><div class="avatar" data-h="0">FZ</div><div class="nm">Fu Zhang</div><div class="pos">Professor</div><div class="af">University of Hong Kong</div><span class="role">Scientific committee</span></div>
+      <div class="person"><div class="avatar" data-h="260">CL</div><div class="nm">Cédric Le Gentil</div><div class="pos">Senior Researcher</div><div class="af">ETH Zurich</div><span class="role">Lead organizer</span></div>
+    </div>
+    <div class="people org-row reveal">
+      <div class="person"><div class="avatar" data-h="180">HZ</div><div class="nm">Haoming Zhang</div><div class="pos">Postdoctoral Researcher</div><div class="af">TU Munich</div><span class="role">Lead organizer</span></div>
+      <div class="person"><div class="avatar" data-h="140">SB</div><div class="nm">Sebastián Barbas Laina</div><div class="pos">PhD Student</div><div class="af">TU Munich</div><span class="role">Lead organizer</span></div>
+      <div class="person"><div class="avatar" data-h="120">AG</div><div class="nm">Abhishek Goudar</div><div class="pos">Postdoctoral Researcher</div><div class="af">University of Toronto</div><span class="role">Scientific committee</span></div>
+      <div class="person"><div class="avatar" data-h="210">SZ</div><div class="nm">Shibo Zhao</div><div class="af">Amazon</div><span class="role">Scientific committee</span></div>
     </div>
   </div>
 </section>
@@ -514,19 +531,24 @@ document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.clas
   const pts = [];
   for (let i = 0; i < 2600; i++) pts.push([(rnd() - .5) * 18, -1.6 + rnd() * .05, (rnd() - .5) * 18, 0]);
   const boxes = [[-6, -4.5, 2, 2.2, 3.8], [3.2, -6, 2.6, 1.6, 5.2], [5, 2.6, 1.6, 3.2, 2.8], [-4.6, 4.2, 3.2, 1.6, 4.2], [-0.5, -8, 4.2, 1, 2.6], [-8, -0.5, 1, 4.2, 3.2], [7, -2.5, 1.2, 2, 4]];
-  boxes.forEach(b => {
+  // Objects: what the VLA sees, as opposed to the raw features SLAM tracks. Each point keeps its object index.
+  const objs = [], NAMES = ['building', 'office tower', 'warehouse', 'apartment', 'parking garage', 'shop', 'tower'];
+  boxes.forEach((b, bi) => {
+    const oi = objs.push({ name: NAMES[bi % NAMES.length], lo: [b[0], -1.6, b[1]], hi: [b[0] + b[2], -1.6 + b[4], b[1] + b[3]] }) - 1;
     for (let i = 0; i < 1000; i++) {
       const f = Math.floor(rnd() * 4), u = rnd(); let x, z;
       if (f === 0) { x = b[0]; z = b[1] + u * b[3]; } else if (f === 1) { x = b[0] + b[2]; z = b[1] + u * b[3]; }
       else if (f === 2) { x = b[0] + u * b[2]; z = b[1]; } else { x = b[0] + u * b[2]; z = b[1] + b[3]; }
-      pts.push([x, -1.6 + rnd() * b[4], z, 1]);
+      pts.push([x, -1.6 + rnd() * b[4], z, 1, oi]);
     }
   });
   for (let k = 0; k < 10; k++) {
     const tx = (rnd() - .5) * 13, tz = (rnd() - .5) * 13;
     if (Math.hypot(tx, tz) < 3.6) continue;
-    for (let i = 0; i < 240; i++) { const a = rnd() * 6.283, r = Math.sqrt(rnd()) * .95, h = rnd() * 1.5; pts.push([tx + Math.cos(a) * r * (1 - h / 2), .1 + h, tz + Math.sin(a) * r * (1 - h / 2), 2]); }
+    const oi = objs.push({ name: 'tree', lo: [tx - .95, .1, tz - .95], hi: [tx + .95, 1.6, tz + .95] }) - 1;
+    for (let i = 0; i < 240; i++) { const a = rnd() * 6.283, r = Math.sqrt(rnd()) * .95, h = rnd() * 1.5; pts.push([tx + Math.cos(a) * r * (1 - h / 2), .1 + h, tz + Math.sin(a) * r * (1 - h / 2), 2, oi]); }
   }
+  objs.forEach(o => { o.c = [0, 1, 2].map(i => (o.lo[i] + o.hi[i]) / 2); o.conf = (.86 + rnd() * .12).toFixed(2); o.seen = 0; });
 
   // --- Trajectory (drone loop), poses, landmarks ---
   const TN = 240, traj = [];
@@ -546,15 +568,44 @@ document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.clas
     return lms.map((l, j) => [Math.hypot(p[0] - l[0], p[2] - l[2]), j]).sort((a, b) => a[0] - b[0]).slice(0, 2).map(x => x[1]);
   });
 
+  // --- VLA agent: weaves between the buildings, maps pixels + language straight to actions ---
+  // Closed Catmull-Rom spline through street waypoints, sampled by arc length for constant speed
+  const wp = [[6, .4], [4.2, 2.6], [2.4, 5.2], [0, 6.8], [-3.4, 7], [-5.8, 6], [-6, 3], [-6, .2], [-7.2, -5.6], [-2.6, -6], [2.6, -3.8], [5.8, -2.4]];
+  const cr = (a, b, c, d, t) => .5 * (2 * b + (c - a) * t + (2 * a - 5 * b + 4 * c - d) * t * t + (3 * b - a - 3 * c + d) * t * t * t);
+  const vPath = [];
+  wp.forEach((_, i) => {
+    const [a, b, c, d] = [-1, 0, 1, 2].map(o => wp[(i + o + wp.length) % wp.length]);
+    for (let k = 0; k < 40; k++) vPath.push([cr(a[0], b[0], c[0], d[0], k / 40), 0, cr(a[1], b[1], c[1], d[1], k / 40)]);
+  });
+  const VN = vPath.length, vLen = [0];
+  vPath.forEach((p, i) => {
+    p[1] = 1.3 + .25 * Math.sin(i / VN * 6.283 * 3);
+    const n = vPath[(i + 1) % VN]; vLen.push(vLen[i] + Math.hypot(n[0] - p[0], n[2] - p[2]));
+  });
+  const vTotal = vLen[VN];
+  function vAt(s) {
+    s = ((s % vTotal) + vTotal) % vTotal;
+    let lo = 0, hi = VN - 1;
+    while (lo < hi) { const m = (lo + hi + 1) >> 1; if (vLen[m] <= s) lo = m; else hi = m - 1; }
+    const a = vPath[lo], b = vPath[(lo + 1) % VN], t = (s - vLen[lo]) / (vLen[lo + 1] - vLen[lo]);
+    return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+  }
+  const V_SPEED = 2;                          // world units per second
+  const FOV = .6, RANGE = 6, SEE_COS = Math.cos(FOV + .2);
+  const PROMPTS = ['follow the street', 'fly past the tall building', 'go around the trees', 'head back to the square'];
+  const PROMPT_T = 6500, TOKEN_LIFE = 750;
+  const tokens = []; let lastSpawn = 0, pulse = 0;
+
   // --- Camera ---
   let ang = 0.6;
   function proj(p) {
     const ca = Math.cos(ang), sa = Math.sin(ang);
     const x = p[0] * ca - p[2] * sa, z = p[0] * sa + p[2] * ca, y = p[1];
-    const tilt = .44, ct = Math.cos(tilt), st = Math.sin(tilt);
-    const y2 = y * ct - z * st, z2 = y * st + z * ct + 14;
-    const f = (W > 760 ? Math.min(W * .66, H * 1.0) : Math.min(W * .95, H * 1.25)) / z2;
-    const cx = W > 760 ? W * .64 : W * .5, cy = W > 760 ? H * .44 : H * .36;
+    const tilt = .6, ct = Math.cos(tilt), st = Math.sin(tilt);
+    // camera far back (24) keeps perspective mild, so the VLA's outer loop stays on screen at every angle
+    const y2 = y * ct - z * st, z2 = y * st + z * ct + 24;
+    const f = (W > 760 ? Math.min(W * .7, H * 1.05) : Math.min(W * 1.35, H * 1.8)) / z2;
+    const cx = W > 760 ? W * .55 : W * .5, cy = W > 760 ? H * .48 : H * .36;
     return [cx + x * f, cy - y2 * f, z2, f];
   }
 
@@ -576,15 +627,28 @@ document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.clas
     const label = ['exploring · drift ↑', 'loop closure detected', 'optimizing graph…', 'consistent · drift ↓'][phase];
     if (stateEl && stateEl.textContent !== label) stateEl.textContent = label;
 
+    // VLA agent pose and heading
+    const vt = reduced ? 9000 : Math.max(0, now - t0);
+    const vs = vt / 1000 * V_SPEED, va = vAt(vs), vn = vAt(vs + .3);
+    const hx = vn[0] - va[0], hz = vn[2] - va[2], hl = Math.hypot(hx, hz) || 1;
+    // the VLA sees whole objects in its view, not individual features
+    const seenObj = objs.map(o => {
+      const dx = o.c[0] - va[0], dz = o.c[2] - va[2], d = Math.hypot(dx, dz);
+      const on = d < RANGE + 1.2 && (dx * hx + dz * hz) / (d * hl) > SEE_COS;
+      if (on && !o.since) o.since = now; else if (!on) o.since = 0;
+      return on;
+    });
+
     // background
     ctx.fillStyle = '#050507'; ctx.fillRect(0, 0, W, H);
 
-    // point cloud
+    // point cloud: features for SLAM; points of objects the VLA sees light up as one object
     for (const p of pts) {
       const q = proj(p); if (q[2] < 1) continue;
       const a = Math.max(.25, Math.min(.95, 13 / q[2] - .1));
       let c;
-      if (p[3] === 2) c = `rgba(52,211,153,${a * .75})`;
+      if (p[4] !== undefined && seenObj[p[4]]) c = `rgba(196,181,253,${Math.min(1, a + .2)})`;
+      else if (p[3] === 2) c = `rgba(52,211,153,${a * .75})`;
       else if (p[3] === 1) { const h = (p[1] + 1.6) / 5; c = `rgba(${110 + 70 * h | 0},${130 + 40 * h | 0},255,${a})`; }
       else c = `rgba(95,105,135,${a * .8})`;
       ctx.fillStyle = c; ctx.fillRect(q[0], q[1], 1.6, 1.6);
@@ -594,25 +658,29 @@ document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.clas
     const vis = poses.map((pi, k) => [pi, k]).filter(([pi]) => pi <= head);
 
     // landmark factors
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 1.2;
     vis.forEach(([pi, k]) => {
       const q = proj(traj[pi]);
       lmEdges[k].forEach(j => {
         const l = proj(lms[j]);
-        ctx.strokeStyle = 'rgba(245,158,11,.22)'; ctx.beginPath(); ctx.moveTo(q[0], q[1]); ctx.lineTo(l[0], l[1]); ctx.stroke();
+        ctx.strokeStyle = 'rgba(245,158,11,.38)'; ctx.beginPath(); ctx.moveTo(q[0], q[1]); ctx.lineTo(l[0], l[1]); ctx.stroke();
       });
     });
     // landmarks that have been observed
     const seen = new Set(); vis.forEach(([, k]) => lmEdges[k].forEach(j => seen.add(j)));
-    seen.forEach(j => { const l = proj(lms[j]); ctx.fillStyle = '#f59e0b'; ctx.fillRect(l[0] - 3, l[1] - 3, 6, 6); });
+    seen.forEach(j => {
+      const l = proj(lms[j]);
+      ctx.fillStyle = 'rgba(245,158,11,.25)'; ctx.fillRect(l[0] - 6, l[1] - 6, 12, 12);
+      ctx.fillStyle = '#f59e0b'; ctx.fillRect(l[0] - 3.5, l[1] - 3.5, 7, 7);
+    });
 
     // trajectory
     ctx.beginPath();
     for (let i = 0; i <= head; i++) { const q = proj(traj[i]); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }
-    ctx.strokeStyle = 'rgba(244,114,182,.85)'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.strokeStyle = 'rgba(244,114,182,.7)'; ctx.lineWidth = 1.6; ctx.stroke();
 
     // odometry factors between poses
-    ctx.strokeStyle = 'rgba(94,234,212,.55)'; ctx.lineWidth = 1.4;
+    ctx.strokeStyle = 'rgba(94,234,212,.9)'; ctx.lineWidth = 2.4;
     for (let n = 1; n < vis.length; n++) {
       const a = proj(traj[vis[n - 1][0]]), b = proj(traj[vis[n][0]]);
       ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
@@ -640,17 +708,153 @@ document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.clas
       const rx = s * q[3] * 1.4, ry = s * q[3] * .75;
       const nx = traj[Math.min(pi + 1, TN)], dir = proj(nx);
       const rot = Math.atan2(dir[1] - q[1], dir[0] - q[0]);
-      ctx.strokeStyle = 'rgba(94,234,212,.38)'; ctx.fillStyle = 'rgba(94,234,212,.05)'; ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(94,234,212,.6)'; ctx.fillStyle = 'rgba(94,234,212,.09)'; ctx.lineWidth = 1.3;
       ctx.beginPath(); ctx.ellipse(q[0], q[1], Math.max(rx, 2), Math.max(ry, 1.5), rot, 0, 6.283); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = '#5eead4'; ctx.beginPath(); ctx.arc(q[0], q[1], 3.4, 0, 6.283); ctx.fill();
+      ctx.fillStyle = '#050507'; ctx.beginPath(); ctx.arc(q[0], q[1], 5.6, 0, 6.283); ctx.fill();
+      ctx.fillStyle = '#5eead4'; ctx.beginPath(); ctx.arc(q[0], q[1], 4.2, 0, 6.283); ctx.fill();
     });
 
     // drone head
+    const sq = proj(traj[head]);
     if (head < TN) {
-      const q = proj(traj[head]);
-      ctx.fillStyle = 'rgba(255,255,255,.18)'; ctx.beginPath(); ctx.arc(q[0], q[1], 10, 0, 6.283); ctx.fill();
-      ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(q[0], q[1], 4.5, 0, 6.283); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.18)'; ctx.beginPath(); ctx.arc(sq[0], sq[1], 11, 0, 6.283); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(sq[0], sq[1], 5, 0, 6.283); ctx.fill();
     }
+
+    // ---- VLA agent ----
+    const vq = proj(va);
+    // camera frustum on the ground plane ahead of the agent
+    const hAng = Math.atan2(hz, hx), far = [];
+    for (let i = 0; i <= 12; i++) {
+      const th = hAng - FOV + 2 * FOV * i / 12;
+      far.push(proj([va[0] + Math.cos(th) * RANGE, va[1] - 1.1, va[2] + Math.sin(th) * RANGE]));
+    }
+    ctx.beginPath(); ctx.moveTo(vq[0], vq[1]); far.forEach(f => ctx.lineTo(f[0], f[1])); ctx.closePath();
+    ctx.fillStyle = 'rgba(167,139,250,.07)'; ctx.fill();
+    ctx.strokeStyle = 'rgba(167,139,250,.35)'; ctx.lineWidth = 1; ctx.stroke();
+
+    // detected objects: 3D boxes with open-vocabulary labels
+    const vObjs = [];
+    objs.forEach((o, i) => {
+      if (!seenObj[i]) return;
+      const al = reduced ? 1 : Math.min(1, (now - o.since) / 350);
+      const cs = [0, 1, 2, 3, 4, 5, 6, 7].map(n => proj([n & 1 ? o.hi[0] : o.lo[0], n & 2 ? o.hi[1] : o.lo[1], n & 4 ? o.hi[2] : o.lo[2]]));
+      ctx.strokeStyle = `rgba(196,181,253,${.8 * al})`; ctx.lineWidth = 1.3; ctx.beginPath();
+      [[0, 1], [2, 3], [4, 5], [6, 7], [0, 2], [1, 3], [4, 6], [5, 7], [0, 4], [1, 5], [2, 6], [3, 7]].forEach(([a, b]) => { ctx.moveTo(cs[a][0], cs[a][1]); ctx.lineTo(cs[b][0], cs[b][1]); });
+      ctx.stroke();
+      const x0 = Math.min(...cs.map(c => c[0])), x1 = Math.max(...cs.map(c => c[0]));
+      const y0 = Math.min(...cs.map(c => c[1])), y1 = Math.max(...cs.map(c => c[1]));
+      const tag = o.name + ' ' + o.conf;
+      ctx.font = '500 11px "JetBrains Mono", monospace';
+      const tw = ctx.measureText(tag).width + 10;
+      ctx.fillStyle = `rgba(167,139,250,${.9 * al})`; ctx.fillRect(x0, y0 - 18, tw, 16);
+      ctx.fillStyle = `rgba(11,11,18,${al})`; ctx.fillText(tag, x0 + 5, y0 - 6);
+      vObjs.push([x0, y0, x1, y1, proj(o.c)]);
+    });
+
+    // trail fades to nothing: the policy keeps no map and no explicit state
+    ctx.lineWidth = 2;
+    for (let i = 0; i < 40; i++) {
+      const a = proj(vAt(vs - 5 + i * .125)), b = proj(vAt(vs - 5 + (i + 1) * .125));
+      ctx.strokeStyle = `rgba(167,139,250,${(i / 40) ** 1.5 * .85})`;
+      ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+    }
+
+    // policy network floating above the agent
+    // box sits above the agent, or below it when that would run under the nav bar
+    const BW = 84, BH = 58, layers = [4, 5, 5, 3], gBelow = vq[1] - 96 - BH / 2 - 40 < 84;
+    const gx = vq[0], gy = gBelow ? vq[1] + 70 : vq[1] - 96, gPort = gBelow ? gy - BH / 2 : gy + BH / 2;
+    const node = (l, r) => [gx + (l - 1.5) * 20, gy + (r - (layers[l] - 1) / 2) * 9];
+
+    // attention over the objects in view, nothing else
+    ctx.lineWidth = 1.2;
+    vObjs.forEach(([, , , , c], i) => {
+      ctx.strokeStyle = `rgba(167,139,250,${.18 + .22 * Math.abs(Math.sin(now / 420 + i * 1.3))})`;
+      ctx.beginPath(); ctx.moveTo(gx, gPort); ctx.lineTo(c[0], c[1]); ctx.stroke();
+      ctx.fillStyle = 'rgba(221,214,254,.9)'; ctx.beginPath(); ctx.arc(c[0], c[1], 2.6, 0, 6.283); ctx.fill();
+    });
+
+    ctx.fillStyle = 'rgba(5,5,7,.78)'; ctx.strokeStyle = `rgba(167,139,250,${.45 + .45 * pulse})`; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.roundRect ? ctx.roundRect(gx - BW / 2, gy - BH / 2, BW, BH, 10) : ctx.rect(gx - BW / 2, gy - BH / 2, BW, BH); ctx.fill(); ctx.stroke();
+    ctx.lineWidth = 1; ctx.strokeStyle = `rgba(196,181,253,${.14 + .4 * pulse})`;
+    for (let l = 0; l < layers.length - 1; l++) for (let r = 0; r < layers[l]; r++) for (let s = 0; s < layers[l + 1]; s++) {
+      const a = node(l, r), b = node(l + 1, s); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+    }
+    layers.forEach((n, l) => { for (let r = 0; r < n; r++) {
+      const p = node(l, r), lit = .55 + .45 * Math.sin(now / 160 + l * 1.7 + r * 2.3) * pulse;
+      ctx.fillStyle = `rgba(196,181,253,${lit})`; ctx.beginPath(); ctx.arc(p[0], p[1], 2.4, 0, 6.283); ctx.fill();
+    } });
+    ctx.font = '500 11px "JetBrains Mono", monospace'; ctx.fillStyle = 'rgba(196,181,253,.9)';
+    ctx.fillText('VLA policy', gx - BW / 2, gy - BH / 2 - 7);
+
+    // language instruction, typed out
+    const pIdx = Math.floor(vt / PROMPT_T) % PROMPTS.length, typed = PROMPTS[pIdx].slice(0, reduced ? 99 : Math.floor((vt % PROMPT_T) / 55));
+    ctx.font = '12px "JetBrains Mono", monospace'; ctx.fillStyle = 'rgba(255,255,255,.85)';
+    ctx.fillText('› "' + typed + (typed.length < PROMPTS[pIdx].length ? '▍' : '"'), gx - BW / 2, gy - BH / 2 - 25);
+
+    // object tokens stream from the detected objects into the policy
+    if (!reduced && vObjs.length && now - lastSpawn > 70) {
+      const [x0, y0, x1, y1] = vObjs[Math.floor(Math.random() * vObjs.length)];
+      tokens.push([x0 + Math.random() * (x1 - x0), y0 + Math.random() * (y1 - y0), now]); lastSpawn = now;
+    }
+    pulse *= .92;
+    for (let i = tokens.length - 1; i >= 0; i--) {
+      const [sx, sy, born] = tokens[i], t = (now - born) / TOKEN_LIFE;
+      if (t >= 1) { tokens.splice(i, 1); pulse = Math.min(1, pulse + .25); continue; }
+      const e = ease(t), x = sx + (gx - sx) * e, y = sy + (gPort - sy) * e - Math.sin(Math.PI * t) * 30;
+      ctx.fillStyle = `rgba(221,214,254,${.95 - .4 * t})`; ctx.fillRect(x - 2.5, y - 2.5, 5, 5);
+    }
+
+    // action out of the policy, straight to the agent: no state in between
+    ctx.strokeStyle = 'rgba(167,139,250,.45)'; ctx.setLineDash([3, 4]); ctx.lineDashOffset = -now / 50;
+    ctx.beginPath(); ctx.moveTo(gx, gPort); ctx.lineTo(vq[0], vq[1] + (gBelow ? 10 : -10)); ctx.stroke(); ctx.setLineDash([]);
+    const ah = proj(vAt(vs + 1.2)), adx = ah[0] - vq[0], ady = ah[1] - vq[1], al = Math.hypot(adx, ady) || 1;
+    const ux = adx / al, uy = ady / al, L = 40, tx = vq[0] + ux * L, ty = vq[1] + uy * L;
+    ctx.strokeStyle = '#ddd6fe'; ctx.fillStyle = '#ddd6fe'; ctx.lineWidth = 2.4;
+    ctx.beginPath(); ctx.moveTo(vq[0], vq[1]); ctx.lineTo(tx, ty); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(tx + ux * 7, ty + uy * 7); ctx.lineTo(tx - uy * 5, ty + ux * 5); ctx.lineTo(tx + uy * 5, ty - ux * 5); ctx.closePath(); ctx.fill();
+    ctx.font = '12px "JetBrains Mono", monospace'; ctx.fillText('aₜ', tx + ux * 12 + 4, ty + uy * 12 + 4);
+
+    // agent body
+    ctx.fillStyle = 'rgba(167,139,250,.25)'; ctx.beginPath(); ctx.arc(vq[0], vq[1], 11, 0, 6.283); ctx.fill();
+    ctx.fillStyle = '#c4b5fd'; ctx.beginPath(); ctx.arc(vq[0], vq[1], 4.8, 0, 6.283); ctx.fill();
+
+    // ---- SLAM back end: sparse information matrix of the pose graph, floating above the drone ----
+    const CELL = 3, MS = NP * CELL, SW = MS + 104, SH = MS + 16;
+    const sBelow = sq[1] - 50 - SH - 40 < 84;
+    let bx = sq[0], by = sBelow ? sq[1] + 50 + SH / 2 : sq[1] - 50 - SH / 2;
+    if (Math.abs(bx - gx) < (SW + BW) / 2 + 12 && Math.abs(by - gy) < (SH + BH) / 2 + 56) bx = gx + Math.sign(bx - gx || -1) * ((SW + BW) / 2 + 16);
+    bx = Math.max(SW / 2 + 8, Math.min(W - SW / 2 - 8, bx));
+    const bl = bx - SW / 2, bt = by - SH / 2, kLast = vis.length - 1;
+    const closing = phase === 1 ? .5 + .5 * Math.sin(now / 90) : 0;
+
+    ctx.strokeStyle = 'rgba(94,234,212,.45)'; ctx.setLineDash([3, 4]); ctx.lineDashOffset = -now / 50; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(bx, sBelow ? bt : bt + SH); ctx.lineTo(sq[0], sq[1] + (sBelow ? 10 : -10)); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(5,5,7,.78)'; ctx.strokeStyle = closing ? `rgba(245,158,11,${.5 + .5 * closing})` : 'rgba(94,234,212,.55)'; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.roundRect ? ctx.roundRect(bl, bt, SW, SH, 10) : ctx.rect(bl, bt, SW, SH); ctx.fill(); ctx.stroke();
+
+    // band-diagonal from odometry, corner entries from the loop closure
+    const mx = bl + 8, my = bt + 8;
+    ctx.fillStyle = 'rgba(255,255,255,.04)'; ctx.fillRect(mx, my, MS, MS);
+    for (let i = 0; i <= kLast; i++) for (let j = Math.max(0, i - 1); j <= Math.min(kLast, i + 1); j++) {
+      ctx.fillStyle = i === j ? '#5eead4' : 'rgba(94,234,212,.55)'; ctx.fillRect(mx + j * CELL, my + i * CELL, CELL - .6, CELL - .6);
+    }
+    if (phase >= 1) {
+      ctx.fillStyle = `rgba(245,158,11,${phase === 1 ? .5 + .5 * closing : 1})`;
+      ctx.fillRect(mx + (NP - 1) * CELL, my, CELL - .6, CELL - .6); ctx.fillRect(mx, my + (NP - 1) * CELL, CELL - .6, CELL - .6);
+    }
+
+    const sNow = (1 - blend) * sigmaDrift(kLast) + blend * sigmaOpt(kLast);
+    const tx0 = mx + MS + 12;
+    ctx.font = '11px "JetBrains Mono", monospace'; ctx.fillStyle = 'rgba(255,255,255,.78)';
+    ctx.fillText('poses   ' + vis.length, tx0, my + 14);
+    ctx.fillText('factors ' + (3 * vis.length - 1 + (phase >= 1 ? 1 : 0)), tx0, my + 32);
+    ctx.fillStyle = phase >= 2 ? '#5eead4' : '#f59e0b';
+    ctx.fillText('σ  ' + sNow.toFixed(2) + (phase >= 2 ? ' ↓' : ' ↑'), tx0, my + 50);
+    ctx.font = '500 11px "JetBrains Mono", monospace'; ctx.fillStyle = 'rgba(94,234,212,.95)';
+    ctx.fillText('SLAM back end', bl, bt - 7);
+    ctx.font = '12px "JetBrains Mono", monospace'; ctx.fillStyle = 'rgba(255,255,255,.85)';
+    ctx.fillText('x* = argmax p(x | z)', bl, bt - 25);
 
     if (!reduced) ang += .0016;
     if (!reduced) requestAnimationFrame(frame);
