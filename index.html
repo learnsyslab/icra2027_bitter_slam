@@ -244,7 +244,7 @@
       <div class="eyebrow">Why this workshop</div>
       <h2>The front end lost. Is the back end next?</h2>
       <p class="lead">Deep learning has brought Sutton's Bitter Lesson to many fields, but for SLAM the verdict is still split. Hand-crafted features, tuned RANSAC and bag-of-words loop closure have given way to learned alternatives. The <strong>probabilistic back end</strong> has not, and it can claim to be exactly the kind of general method that scales with compute.</p>
-      <p class="lead">Geometric foundation models are now default front ends, semantic embeddings populate maps, and vision-language-action policies bypass state estimation entirely. There is broad consensus that learning and probabilistic inference should be combined, but <strong>no consensus on what that combination means</strong>.</p>
+      <p class="lead">Geometric foundation models are now default front ends, semantic embeddings populate maps, and vision-language-action policies bypass state estimation entirely. There is broad consensus that learning and probabilistic inference should be combined, but end-to-end models ask <strong>whether that combination is needed at all</strong>.</p>
       <div class="shifts">
         <div class="shift"><div class="k">Front end</div><div class="v">Learned</div><small>DUSt3R, MASt3R as default</small></div>
         <div class="shift"><div class="k">Maps</div><div class="v">Semantic</div><small>CLIP / DINO embeddings</small></div>
@@ -253,8 +253,8 @@
     </div>
     <div class="question reveal">
       <div class="eyebrow" style="margin-bottom:0">The core question</div>
-      <div class="q">When a learned model's output enters an inference problem, what is it as a measurement?</div>
-      <p>Estimation theory was built for sensors whose errors can be characterized. Foundation models produce strong, structured and correlated errors with no comparable characterization, and that decides whether introspection and certification remain possible.</p>
+      <div class="q">If a learned model can output the state directly, why should its output still enter a probabilistic inference problem?</div>
+      <p>End-to-end learning expects the remaining errors to vanish with data and scale. Estimation theory provides a characterized uncertainty and the means to detect failures, which a single network lacks, while foundation models produce strong, structured and correlated errors, particularly out of distribution.</p>
       <p style="margin-top:14px;color:var(--ink)">Our position: probabilistic estimation becomes <em>more</em> necessary, not less. This position is falsifiable, so we put it to a vote.</p>
     </div>
   </div>
@@ -276,22 +276,22 @@
       <div class="motion-top">
         <div class="mnum">M1</div>
         <div>
-          <div class="label">Motion 1 · Measurement</div>
-          <h3><span class="thb">This house believes that</span> the output of a foundation model admits a valid probabilistic measurement model, and estimation theory extends to it.</h3>
+          <div class="label">Motion 1 · Scale vs. principle</div>
+          <h3><span class="thb">This house believes that</span> out-of-distribution failures in robot state estimation will be solved by more data and scale before they are solved by estimation theory.</h3>
         </div>
         <div class="when">14:00–15:00</div>
       </div>
       <div class="sides">
         <div class="side prop">
           <div class="who"><i></i>Proposition</div>
-          <p>Foundation-model outputs can be given a valid likelihood, and the existing machinery of estimation theory carries over.</p>
-          <div class="seats"><span class="seat">Senior researcher</span><span class="seat">Early-career researcher</span></div>
+          <p>Data and scale will close the out-of-distribution gap first, just as they did for the front end.</p>
+          <div class="seats"><span class="seat">Senior researcher</span><span class="seat paper">Seat for an accepted paper's author</span></div>
         </div>
         <div class="vs">VERSUS</div>
         <div class="side opp">
           <div class="who"><i></i>Opposition</div>
-          <p>The output of a foundation model cannot be treated as a measurement in the classical probabilistic sense.</p>
-          <div class="seats"><span class="seat">Senior researcher</span><span class="seat paper">Seat for an accepted paper's author</span></div>
+          <p>A model with fixed weights makes errors that are shared across its outputs and do not average out, so data and scale cannot replace the principled error modeling and failure detection that estimation theory provides.</p>
+          <div class="seats"><span class="seat">Senior researcher</span><span class="seat">Early-career researcher</span></div>
         </div>
       </div>
       <div class="poll">
@@ -307,21 +307,21 @@
       <div class="motion-top">
         <div class="mnum">M2</div>
         <div>
-          <div class="label">Motion 2 · Scale vs. principle</div>
-          <h3><span class="thb">This house believes that</span> out-of-distribution failures of learned perception will be solved by more data and scale before they are solved by estimation theory.</h3>
+          <div class="label">Motion 2 · Explicit state</div>
+          <h3><span class="thb">This house believes that</span> within ten years, mobile embodied AI agents will no longer need explicit probabilistic state estimation.</h3>
         </div>
         <div class="when">15:30–16:30</div>
       </div>
       <div class="sides">
         <div class="side prop">
           <div class="who"><i></i>Proposition</div>
-          <p>Data and scale will close the out-of-distribution gap first, just as they did for the front end.</p>
+          <p>Agents trained end to end will act directly on raw observations, and an explicit estimate of their state will become unnecessary.</p>
           <div class="seats"><span class="seat">Senior researcher</span><span class="seat paper">Seat for an accepted paper's author</span></div>
         </div>
         <div class="vs">VERSUS</div>
         <div class="side opp">
           <div class="who"><i></i>Opposition</div>
-          <p>Robustness to out-of-distribution conditions requires the principled modeling of estimation theory, which data and scale cannot replace.</p>
+          <p>Safety and introspection require an explicit and inspectable uncertainty, and correlated learned errors make independent probabilistic consistency checks more necessary rather than less.</p>
           <div class="seats"><span class="seat">Senior researcher</span><span class="seat">Early-career researcher</span></div>
         </div>
       </div>
@@ -369,9 +369,9 @@
       <div class="phase">
         <h3>Phase 2 · Testing the position</h3>
         <div class="ph">Afternoon</div>
-        <div class="slot hl"><span class="tm">14:00–15:00</span><span class="ti">Debate on Motion 1 <span class="tag m1">M1</span><small>Measurement</small></span></div>
+        <div class="slot hl"><span class="tm">14:00–15:00</span><span class="ti">Debate on Motion 1 <span class="tag m1">M1</span><small>Scale vs. principle</small></span></div>
         <div class="slot brk"><span class="tm">15:00–15:30</span><span class="ti">Coffee break, posters</span></div>
-        <div class="slot hl"><span class="tm">15:30–16:30</span><span class="ti">Debate on Motion 2 <span class="tag m2">M2</span><small>Scale vs. principle</small></span></div>
+        <div class="slot hl"><span class="tm">15:30–16:30</span><span class="ti">Debate on Motion 2 <span class="tag m2">M2</span><small>Explicit state</small></span></div>
         <div class="slot"><span class="tm">16:30–17:15</span><span class="ti">Panel with all speakers<small>Opens with the vote shifts</small></span></div>
         <div class="slot hl"><span class="tm">17:15–17:30</span><span class="ti">Best paper award, closing poll <span class="tag vote">vote</span></span></div>
       </div>
@@ -390,11 +390,11 @@
     <!-- To add a photo: put a square image in images/ and replace the avatar div with
          <img class="avatar" src="images/name.jpg" alt="Full Name"> -->
     <div class="people reveal">
-      <div class="person"><div class="avatar" data-h="200">AD</div><div class="nm">Andrew Davison</div><div class="af">Imperial College London</div></div>
-      <div class="person"><div class="avatar" data-h="160">WB</div><div class="nm">Wolfram Burgard</div><div class="af">UTN Nuremberg</div></div>
-      <div class="person"><div class="avatar" data-h="280">MC</div><div class="nm">Margarita Chli</div><div class="af">ETH Zurich / Univ. of Cyprus</div></div>
-      <div class="person"><div class="avatar" data-h="20">SS</div><div class="nm">Sebastian Scherer</div><div class="af">Carnegie Mellon University</div></div>
-      <div class="person"><div class="avatar" data-h="330">HO</div><div class="nm">Helen Oleynikova</div><div class="af">Exclaim Robotics</div></div>
+      <div class="person"><div class="avatar" data-h="200">AD</div><div class="nm">Andrew Davison</div><div class="af">Imperial College London</div><span class="role">Opening talk</span></div>
+      <div class="person"><div class="avatar" data-h="160">WB</div><div class="nm">Wolfram Burgard</div><div class="af">UTN Nuremberg</div><span class="role">Debater · learning</span></div>
+      <div class="person"><div class="avatar" data-h="20">SS</div><div class="nm">Shuran Song</div><div class="af">Stanford University</div><span class="role">Debater · learning</span></div>
+      <div class="person"><div class="avatar" data-h="280">MC</div><div class="nm">Margarita Chli</div><div class="af">Univ. of Cyprus / ETH Zurich</div><span class="role">Debater · estimation</span></div>
+      <div class="person"><div class="avatar" data-h="330">TB</div><div class="nm">Tim Barfoot</div><div class="af">University of Toronto</div><span class="role">Debater · estimation</span></div>
     </div>
   </div>
 </section>
