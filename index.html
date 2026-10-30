@@ -50,12 +50,12 @@
   @media (max-width: 760px) { nav.top .links a.opt { display: none; } nav.top .links { gap: 16px; } nav.top .wrap { height: 60px; gap: 16px; } nav.top .brand { font-size: 21px; } nav.top .links a { font-size: 14px; } }
 
   /* ---------- Hero ---------- */
-  header.hero { position: relative; height: 100vh; min-height: 640px; max-height: 980px; overflow: hidden; }
+  header.hero { position: relative; height: 100vh; min-height: 640px; max-height: 900px; overflow: hidden; }
   header.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   header.hero .shade { position: absolute; inset: 0; pointer-events: none;
     background: radial-gradient(120% 80% at 70% 40%, transparent 30%, rgba(5,5,7,.55) 75%),
                 linear-gradient(180deg, rgba(5,5,7,.55) 0%, rgba(5,5,7,0) 18%, rgba(5,5,7,0) 45%, rgba(5,5,7,.92) 88%, var(--bg) 100%); }
-  header.hero .content { position: absolute; left: 0; right: 0; bottom: 56px; z-index: 2; }
+  header.hero .content { position: absolute; left: 0; right: 0; bottom: 28px; z-index: 2; }
   .pill { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 999px; font-size: 13px; color: rgba(255,255,255,.88); }
   .pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 10px var(--teal); display: inline-block; }
   header.hero h1 { font-size: clamp(36px, 6.4vw, 76px); line-height: 1.02; letter-spacing: -.03em; font-weight: 800; margin: 18px 0 14px; max-width: 900px; }
@@ -67,6 +67,11 @@
   .btn.primary { background: #fff; color: #000; }
   .btn.glass { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.26); color: #fff; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
   .btn.glass:hover { background: rgba(255,255,255,.14); }
+  .hero-tcs { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 24px; }
+  .hero-tcs .lbl { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+  .tc-chip { display: inline-flex; align-items: center; gap: 10px; padding: 5px 14px 5px 5px; border-radius: 999px; font-size: 13px; color: rgba(255,255,255,.9); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.22); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background .2s; }
+  .tc-chip:hover { background: rgba(255,255,255,.14); }
+  .tc-chip img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; background: #fff; flex: none; }
   .legend { position: absolute; right: 28px; top: 84px; z-index: 2; display: grid; gap: 6px; font-size: 12px; color: rgba(255,255,255,.62); background: rgba(5,5,7,.45); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; padding: 10px 12px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
   .legend div { display: flex; align-items: center; gap: 8px; }
   .legend b { display: inline-block; width: 14px; height: 2px; }
@@ -75,7 +80,7 @@
   .legend .lg { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.42); }
   .legend .lg + div { margin-top: -2px; }
   .legend .lg.next { margin-top: 8px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,.08); }
-  @media (max-width: 760px) { .legend { display: none; } header.hero .content { bottom: 36px; } }
+  @media (max-width: 760px) { .legend { display: none; } header.hero .content { bottom: 24px; } }
 
   /* ---------- Sections ---------- */
   section { padding: 96px 0; }
@@ -85,6 +90,7 @@
   .lead { font-size: 18px; color: var(--muted); max-width: 760px; margin: 0 0 14px; }
   .lead strong { color: var(--ink); font-weight: 600; }
   @media (max-width: 720px) { section { padding: 72px 0; } }
+  #about { padding-top: 48px; }
 
   /* About */
   .about-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 48px; align-items: start; }
@@ -174,6 +180,8 @@
   @media (min-width: 1000px) { .people.org-row { grid-template-columns: repeat(5, 1fr); } }
   .people.org-row + .people.org-row { margin-top: 16px; }
   .person .role { display: inline-block; margin-top: auto; font-size: 11px; font-family: "JetBrains Mono", monospace; color: var(--teal); border: 1px solid rgba(94,234,212,.3); border-radius: 6px; padding: 1px 8px; }
+  .person .roles { margin-top: auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+  .person .roles .role { margin-top: 0; }
   .subhead { font-size: 15px; color: var(--muted); margin: -6px 0 26px; }
 
   /* CfP */
@@ -246,6 +254,13 @@
         <a class="btn primary" href="#debates">See the motions</a>
         <a class="btn glass" href="#cfp">Submit a paper</a>
         <a class="btn glass" href="#program">Program</a>
+      </div>
+      <div class="hero-tcs">
+        <span class="lbl">Supported by</span>
+        <a class="tc-chip" href="https://www.tcoptrob.org/" target="_blank" rel="noopener"><img src="resources/logos/tc_optrob.jpg" alt="">IEEE RAS TC on Optimization for Robotics</a>
+        <!-- Pending: uncomment once the TC on Computer & Robot Vision confirms its support
+        <a class="tc-chip" href="https://ieee-ras-crv.github.io/" target="_blank" rel="noopener"><img src="resources/logos/tc_crv.jpg" alt="">IEEE RAS TC on Computer and Robot Vision</a>
+        -->
       </div>
     </div>
   </div>
@@ -350,6 +365,8 @@
       </div>
     </article>
 
+    <p class="note reveal">The motions may still be refined before the workshop day.</p>
+
     <div class="format reveal">
       <div class="fstep"><div class="t">01 · vote</div><div class="n">Pre-debate vote</div><small>Room and online</small></div>
       <div class="fstep"><div class="t">02 · 4 × 6 min</div><div class="n">Opening statements</div><small>Two per side</small></div>
@@ -403,15 +420,16 @@
       <h2>Speakers</h2>
       <p class="subhead">From classical estimation to end-to-end learned systems. Further speakers and talk titles to be announced.</p>
     </div>
-    <!-- To add a photo: put a square image in images/ and replace the avatar div with
-         <img class="avatar" src="images/name.jpg" alt="Full Name"> -->
+    <!-- To add a photo: put a square image in resources/avatars/ and replace the avatar div with
+         <img class="avatar" src="resources/avatars/name.jpg" alt="Full Name"> -->
     <div class="people reveal">
+      <div class="person"><img class="avatar" src="resources/avatars/tim_barfoot.jpg" alt="Tim Barfoot"><div class="nm">Tim Barfoot</div><div class="af">University of Toronto</div><span class="role">Debater · estimation</span></div>
       <div class="person"><div class="avatar tba">?</div><div class="nm">To be announced</div><div class="af">Invited speaker</div><span class="role">Opening talk</span></div>
       <div class="person"><div class="avatar tba">?</div><div class="nm">To be announced</div><div class="af">Invited speaker</div><span class="role">Debater · learning</span></div>
       <div class="person"><div class="avatar tba">?</div><div class="nm">To be announced</div><div class="af">Invited speaker</div><span class="role">Debater · learning</span></div>
-      <div class="person"><div class="avatar" data-h="330">TB</div><div class="nm">Tim Barfoot</div><div class="af">University of Toronto</div><span class="role">Debater · estimation</span></div>
       <div class="person"><div class="avatar tba">?</div><div class="nm">To be announced</div><div class="af">Invited speaker</div><span class="role">Debater · estimation</span></div>
     </div>
+    <p class="note reveal">The speaker line-up and debate roles may change depending on speakers' availability.</p>
   </div>
 </section>
 
@@ -467,17 +485,18 @@
       <p class="subhead">Four continents, academia and industry, from full professor to doctoral researcher.</p>
     </div>
     <div class="people org-row reveal">
-      <div class="person"><div class="avatar" data-h="170">SL</div><div class="nm">Stefan Leutenegger</div><div class="pos">Professor</div><div class="af">ETH Zurich</div><span class="role">Host organizer</span></div>
-      <div class="person"><div class="avatar" data-h="300">AS</div><div class="nm">Angela P. Schoellig</div><div class="pos">Professor</div><div class="af">TU Munich</div><span class="role">Host organizer</span></div>
-      <div class="person"><div class="avatar" data-h="40">MM</div><div class="nm">Michael Milford</div><div class="pos">Professor</div><div class="af">QUT</div><span class="role">Debate moderator</span></div>
-      <div class="person"><div class="avatar" data-h="0">FZ</div><div class="nm">Fu Zhang</div><div class="pos">Professor</div><div class="af">University of Hong Kong</div><span class="role">Scientific committee</span></div>
-      <div class="person"><div class="avatar" data-h="260">CL</div><div class="nm">Cédric Le Gentil</div><div class="pos">Senior Researcher</div><div class="af">ETH Zurich</div><span class="role">Lead organizer</span></div>
+      <div class="person"><img class="avatar" src="resources/avatars/stefan_leutenegger.jpg" alt="Stefan Leutenegger"><div class="nm">Stefan Leutenegger</div><div class="pos">Professor</div><div class="af">ETH Zurich</div><div class="roles"><span class="role">Host organizer</span><span class="role">Scientific committee</span></div></div>
+      <div class="person"><img class="avatar" src="resources/avatars/angela_schoellig.jpg" alt="Angela P. Schoellig"><div class="nm">Angela P. Schoellig</div><div class="pos">Professor</div><div class="af">TU Munich</div><div class="roles"><span class="role">Host organizer</span><span class="role">Scientific committee</span></div></div>
+      <div class="person"><img class="avatar" src="resources/avatars/michael_milford.jpg" alt="Michael Milford"><div class="nm">Michael Milford</div><div class="pos">Professor</div><div class="af">QUT</div><div class="roles"><span class="role">Debate moderator</span><span class="role">Scientific committee</span></div></div>
+      <div class="person"><img class="avatar" src="resources/avatars/fu_zhang.jpg" alt="Fu Zhang"><div class="nm">Fu Zhang</div><div class="pos">Professor</div><div class="af">University of Hong Kong</div><span class="role">Scientific committee</span></div>
+      <div class="person"><img class="avatar" src="resources/avatars/cedric_le_gentil.jpg" alt="Cédric Le Gentil"><div class="nm">Cédric Le Gentil</div><div class="pos">Senior Researcher</div><div class="af">ETH Zurich</div><span class="role">Lead organizer</span></div>
     </div>
     <div class="people org-row reveal">
-      <div class="person"><div class="avatar" data-h="180">HZ</div><div class="nm">Haoming Zhang</div><div class="pos">Postdoctoral Researcher</div><div class="af">TU Munich</div><span class="role">Lead organizer</span></div>
-      <div class="person"><div class="avatar" data-h="140">SB</div><div class="nm">Sebastián Barbas Laina</div><div class="pos">PhD Student</div><div class="af">TU Munich</div><span class="role">Lead organizer</span></div>
-      <div class="person"><div class="avatar" data-h="120">AG</div><div class="nm">Abhishek Goudar</div><div class="pos">Postdoctoral Researcher</div><div class="af">University of Toronto</div><span class="role">Scientific committee</span></div>
-      <div class="person"><div class="avatar" data-h="210">SZ</div><div class="nm">Shibo Zhao</div><div class="af">Amazon</div><span class="role">Scientific committee</span></div>
+      <div class="person"><img class="avatar" src="resources/avatars/haoming_zhang.jpg" alt="Haoming Zhang"><div class="nm">Haoming Zhang</div><div class="pos">Postdoctoral Researcher</div><div class="af">TU Munich</div><span class="role">Lead organizer</span></div>
+      <div class="person"><img class="avatar" src="resources/avatars/sebastian_barbas_laina.jpg" alt="Sebastián Barbas Laina"><div class="nm">Sebastián Barbas Laina</div><div class="pos">PhD Student</div><div class="af">TU Munich</div><span class="role">Lead organizer</span></div>
+      <div class="person"><img class="avatar" src="resources/avatars/yannick_burkhardt.jpg" alt="Yannick Burkhardt"><div class="nm">Yannick Burkhardt</div><div class="af">TU Munich</div><span class="role">Lead organizer</span></div>
+      <div class="person"><img class="avatar" src="resources/avatars/abhishek_goudar.jpg" alt="Abhishek Goudar"><div class="nm">Abhishek Goudar</div><div class="pos">Postdoctoral Researcher</div><div class="af">University of Toronto</div><span class="role">Scientific committee</span></div>
+      <div class="person"><img class="avatar" src="resources/avatars/shibo_zhao.jpg" alt="Shibo Zhao"><div class="nm">Shibo Zhao</div><div class="af">Amazon</div><span class="role">Scientific committee</span></div>
     </div>
   </div>
 </section>
@@ -606,7 +625,7 @@ document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.clas
     // camera far back (24) keeps perspective mild, so the VLA's outer loop stays on screen at every angle
     const y2 = y * ct - z * st, z2 = y * st + z * ct + 24;
     const f = (W > 760 ? Math.min(W * .7, H * 1.05) : Math.min(W * 1.35, H * 1.8)) / z2;
-    const cx = W > 760 ? W * .55 : W * .5, cy = W > 760 ? H * .48 : H * .36;
+    const cx = W > 760 ? W * .55 : W * .5, cy = W > 760 ? H * .4 : H * .32;
     return [cx + x * f, cy - y2 * f, z2, f];
   }
 
