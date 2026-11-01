@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Junior Voices · BitterSLAM · ICRA 2027 Workshop</title>
+<meta name="description" content="Junior voices at the BitterSLAM workshop at ICRA 2027: students and early-career researchers submit a position statement on the debate motions.">
+<meta property="og:title" content="Junior Voices · BitterSLAM · ICRA 2027 Workshop">
+<meta property="og:description" content="Junior voices at the BitterSLAM workshop at ICRA 2027: students and early-career researchers submit a position statement on the debate motions.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="subpage">
+
+<nav class="top" id="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">Bitter<span>SLAM</span></a>
+    <div class="links">
+      <a href="index.html#about" class="opt">About</a>
+      <a href="index.html#debates">Debates</a>
+      <a href="index.html#program">Program</a>
+      <a href="index.html#speakers">Speakers</a>
+      <a href="cfp.html">Call for Papers</a>
+      <a class="active" href="junior.html" class="opt">Junior Voices</a>
+      <a href="index.html#organizers" class="opt">Organizers</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- JUNIOR VOICES -->
+<section id="junior" class="page-top">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Junior voices</div>
+      <h2>Take a side. Make your case.</h2>
+      <p class="lead">We invite junior and early-career researchers, from Master's students to postdocs, to submit a short position statement on one or both <a href="index.html#debates" style="color:var(--teal)">motions</a>. No paper needed: tell us which side you are on and why. Authors of strong statements are invited to join the debates if they wish, and with the author's consent, selected statements are presented on this website and at the workshop.</p>
+    </div>
+    <div class="jv-grid">
+      <form class="card jv-form reveal" id="jv-form" novalidate>
+        <div><label for="jv-name">Full name</label><input type="text" id="jv-name" name="name" autocomplete="name" required></div>
+        <div><label for="jv-email">Contact email</label><input type="email" id="jv-email" name="email" autocomplete="email" required></div>
+        <div><label for="jv-affil">Affiliation</label><input type="text" id="jv-affil" name="affiliation" autocomplete="organization" required></div>
+        <div><label for="jv-stage">Career stage</label>
+          <select id="jv-stage" name="career_stage" required>
+            <option value="">Select…</option><option>Master's student</option><option>PhD student</option><option>Postdoc</option><option>Other early-career</option>
+          </select></div>
+        <p class="full jv-hint">Address one motion or both, each with its own side and statement.</p>
+        <fieldset class="full jv-motion">
+          <legend>M1 · Data vs. theory</legend>
+          <div><label for="jv-m1-side">Your side</label>
+            <select id="jv-m1-side" name="m1_side">
+              <option value="">Not addressing this motion</option><option value="for">For (proposition)</option><option value="against">Against (opposition)</option>
+            </select></div>
+          <div><label for="jv-m1-statement">Position statement</label>
+            <textarea id="jv-m1-statement" name="m1_statement" data-max-words="200" placeholder="Your argument and the evidence behind it."></textarea>
+            <div class="count" data-for="jv-m1-statement"></div></div>
+        </fieldset>
+        <fieldset class="full jv-motion">
+          <legend>M2 · The ten-year horizon</legend>
+          <div><label for="jv-m2-side">Your side</label>
+            <select id="jv-m2-side" name="m2_side">
+              <option value="">Not addressing this motion</option><option value="for">For (proposition)</option><option value="against">Against (opposition)</option>
+            </select></div>
+          <div><label for="jv-m2-statement">Position statement</label>
+            <textarea id="jv-m2-statement" name="m2_statement" data-max-words="200" placeholder="Your argument and the evidence behind it."></textarea>
+            <div class="count" data-for="jv-m2-statement"></div></div>
+        </fieldset>
+        <div class="full"><label for="jv-bio">Brief bio</label>
+          <textarea id="jv-bio" name="bio" data-max-words="60" required></textarea>
+          <div class="count" data-for="jv-bio"></div></div>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true"><input type="hidden" name="t">
+        <div class="full"><label for="jv-url">Homepage <span class="opt">(optional)</span></label><input type="url" id="jv-url" name="homepage" placeholder="https://"></div>
+        <label class="check full"><input type="checkbox" name="debate_interest" value="yes"> <span>I would like to join the debates if my statement is selected.</span></label>
+        <label class="check full"><input type="checkbox" name="publish_consent" value="yes"> <span>If selected, my statement may be presented on this website and at the workshop with my name and affiliation.</span></label>
+        <label class="check full"><input type="checkbox" name="privacy_consent" value="yes" required> <span>I agree that the organizers store my submission and contact details to select statements and contact me about the workshop. I can ask for my data to be deleted at any time by emailing <a href="mailto:haoming.zhang@tum.de" style="color:var(--teal)">haoming.zhang@tum.de</a>.</span></label>
+        <div class="full actions">
+          <button type="submit" class="btn primary">Submit statement</button>
+          <span class="jv-status" id="jv-status" role="status"></span>
+        </div>
+      </form>
+      <div class="card reveal">
+        <div class="perk"><div class="ic">✍️</div><div><b>Submit a statement</b><span>Up to 200 words on M1, M2 or both, plus a brief bio, affiliation and contact email.</span></div></div>
+        <div class="perk"><div class="ic">🔎</div><div><b>Selection</b><span>The organizers select the strongest statements on both sides of each motion.</span></div></div>
+        <div class="perk"><div class="ic">📣</div><div><b>Your voice, on the record</b><span>Selected statements are presented here and at the workshop, only with your consent.</span></div></div>
+        <div class="perk"><div class="ic">🎤</div><div><b>Join the debate</b><span>Each side of each debate has a seat for a junior voice, offered to authors of strong statements.</span></div></div>
+      </div>
+    </div>
+    <div class="jv-gallery reveal">
+      <h3 style="margin:0 0 14px;font-size:18px">Selected voices</h3>
+      <!-- Add selected statements (with consent) as cards here -->
+      <div class="jv-empty">Selected statements will appear here, with their authors' consent.</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>BitterSLAM · Workshop at <a href="https://2027.ieee-icra.org/">ICRA 2027</a>, Seoul, South Korea</div>
+    <div>Contact: <a href="mailto:haoming.zhang@tum.de">haoming.zhang@tum.de</a></div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/junior.js"></script>
+</body>
+</html>
