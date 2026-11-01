@@ -129,7 +129,25 @@
   .bar { height: 34px; border-radius: 10px; overflow: hidden; display: flex; background: #1c1c23; font-size: 13px; font-weight: 600; position: relative; }
   .bar .p { background: linear-gradient(90deg, #0369a1, var(--prop)); display: flex; align-items: center; padding-left: 12px; color: #021a2b; transition: width 1.4s cubic-bezier(.2,.8,.2,1); }
   .bar .o { background: linear-gradient(90deg, var(--opp), #be123c); display: flex; align-items: center; justify-content: flex-end; padding-right: 12px; color: #2b0510; transition: width 1.4s cubic-bezier(.2,.8,.2,1); }
-  .bar.pending::after { content: "Pre-workshop poll opens with the call for papers"; position: absolute; inset: 0; display: grid; place-items: center; color: rgba(255,255,255,.85); font-weight: 500; font-size: 13px; background: repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 10px, rgba(255,255,255,.06) 10px 20px); backdrop-filter: blur(1px); }
+  .bar.pending::after { content: attr(data-msg); position: absolute; inset: 0; display: grid; place-items: center; color: rgba(255,255,255,.85); font-weight: 500; font-size: 13px; background: repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 10px, rgba(255,255,255,.06) 10px 20px); backdrop-filter: blur(1px); }
+  .bar.pending .p, .bar.pending .o { opacity: .3; }
+  .bar .u { background: #3a3a46; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.75); overflow: hidden; transition: width 1.4s cubic-bezier(.2,.8,.2,1); }
+  .bar .p, .bar .o, .bar .u { white-space: nowrap; overflow: hidden; }
+  [hidden] { display: none !important; }
+  .vote-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+  .vote-row .vote-q { font-size: 13px; color: var(--muted); margin-right: 4px; }
+  .vote-row button { font: inherit; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; cursor: pointer; background: transparent; color: var(--ink); border: 1px solid var(--line); transition: border-color .2s, background .2s; }
+  .vote-row button:hover { border-color: #4a4a58; }
+  .vote-row button[data-stance="for"].on { background: var(--prop); border-color: var(--prop); color: #021a2b; }
+  .vote-row button[data-stance="against"].on { background: var(--opp); border-color: var(--opp); color: #2b0510; }
+  .vote-row button[data-stance="undecided"].on { background: #3a3a46; border-color: #5a5a68; }
+  .vote-row button:disabled { opacity: .6; cursor: default; }
+  .vote-arg { display: flex; gap: 8px; margin-top: 10px; align-items: flex-start; }
+  .vote-arg textarea { flex: 1; font: inherit; font-size: 13px; color: var(--ink); background: #1c1c23; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; resize: vertical; }
+  .vote-arg .btn { white-space: nowrap; }
+  @media (max-width: 560px) { .vote-arg { flex-direction: column; align-items: stretch; } .vote-row .vote-q { flex-basis: 100%; } }
+  .vote-status { font-size: 12px; color: var(--muted); margin-top: 6px; min-height: 1em; }
+  .vote-status.err { color: var(--opp); }
   .poll .btn { padding: 10px 18px; font-size: 14px; }
 
   .format { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 34px; }
@@ -166,11 +184,13 @@
   .person .af { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
   .person .pos { color: var(--ink); opacity: .8; font-size: 13px; margin-top: 2px; }
   /* Organizers: fixed five columns on wide screens so each row stays a row */
-  @media (min-width: 1000px) { .people.org-row { grid-template-columns: repeat(5, 1fr); } }
+  @media (min-width: 1000px) { .people.org-row { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
   .people.org-row + .people.org-row { margin-top: 16px; }
   .person .role { display: inline-block; margin-top: auto; font-size: 11px; font-family: "JetBrains Mono", monospace; color: var(--teal); border: 1px solid rgba(94,234,212,.3); border-radius: 6px; padding: 1px 8px; white-space: nowrap; }
   .person .roles { margin-top: auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
   .person .roles .role { margin-top: 0; }
+  .person a.role { text-decoration: none; }
+  .person a.role:hover { background: rgba(94,234,212,.1); }
   .subhead { font-size: 15px; color: var(--muted); margin: -6px 0 26px; }
 
   /* CfP */

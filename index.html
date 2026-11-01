@@ -59,9 +59,7 @@
       <div class="hero-tcs">
         <span class="lbl">Supported by</span>
         <a class="tc-chip" href="https://www.tcoptrob.org/" target="_blank" rel="noopener"><img src="resources/logos/tc_optrob.jpg" alt="">IEEE RAS TC on Optimization for Robotics</a>
-        <!-- Pending: uncomment once the TC on Computer & Robot Vision confirms its support
         <a class="tc-chip" href="https://ieee-ras-crv.github.io/" target="_blank" rel="noopener"><img src="resources/logos/tc_crv.jpg" alt="">IEEE RAS TC on Computer and Robot Vision</a>
-        -->
       </div>
     </div>
   </div>
@@ -126,10 +124,19 @@
           <div class="seats"><span class="seat">Senior researcher</span><span class="seat">Senior researcher</span><span class="seat paper">Pitch author</span><span class="seat junior">Junior voice</span></div>
         </div>
       </div>
-      <div class="poll">
+      <div class="poll" data-motion="m1">
         <div>
-          <div class="lbl"><span>Community stance on M1</span><span class="mono">pre-workshop poll</span></div>
-          <div class="bar pending"><div class="p" style="width:50%">For</div><div class="o" style="width:50%">Against</div></div>
+          <div class="lbl"><span>Community stance on M1</span><span class="mono poll-n">pre-workshop poll</span></div>
+          <div class="bar pending" data-msg="Loading the poll…"><div class="p" style="width:50%">For</div><div class="u" style="width:0"></div><div class="o" style="width:50%">Against</div></div>
+          <div class="vote-row" hidden>
+            <span class="vote-q">Where do you stand?</span>
+            <button type="button" data-stance="for">For</button><button type="button" data-stance="undecided">Undecided</button><button type="button" data-stance="against">Against</button>
+          </div>
+          <form class="vote-arg" hidden>
+            <textarea name="argument" rows="3" maxlength="600" placeholder="Your strongest argument (optional, up to 60 words). The moderator may bring it into the debate."></textarea>
+            <button type="submit" class="btn glass">Send argument</button>
+          </form>
+          <div class="vote-status" aria-live="polite"></div>
         </div>
         <a class="btn glass" href="cfp.html">Argue it on stage →</a>
       </div>
@@ -157,16 +164,25 @@
           <div class="seats"><span class="seat">Senior researcher</span><span class="seat">Senior researcher</span><span class="seat paper">Pitch author</span><span class="seat junior">Junior voice</span></div>
         </div>
       </div>
-      <div class="poll">
+      <div class="poll" data-motion="m2">
         <div>
-          <div class="lbl"><span>Community stance on M2</span><span class="mono">pre-workshop poll</span></div>
-          <div class="bar pending"><div class="p" style="width:50%">For</div><div class="o" style="width:50%">Against</div></div>
+          <div class="lbl"><span>Community stance on M2</span><span class="mono poll-n">pre-workshop poll</span></div>
+          <div class="bar pending" data-msg="Loading the poll…"><div class="p" style="width:50%">For</div><div class="u" style="width:0"></div><div class="o" style="width:50%">Against</div></div>
+          <div class="vote-row" hidden>
+            <span class="vote-q">Where do you stand?</span>
+            <button type="button" data-stance="for">For</button><button type="button" data-stance="undecided">Undecided</button><button type="button" data-stance="against">Against</button>
+          </div>
+          <form class="vote-arg" hidden>
+            <textarea name="argument" rows="3" maxlength="600" placeholder="Your strongest argument (optional, up to 60 words). The moderator may bring it into the debate."></textarea>
+            <button type="submit" class="btn glass">Send argument</button>
+          </form>
+          <div class="vote-status" aria-live="polite"></div>
         </div>
         <a class="btn glass" href="cfp.html">Argue it on stage →</a>
       </div>
     </article>
 
-    <p class="note reveal">The motions may still be refined before the workshop day.</p>
+    <p class="note reveal">The motions may still be refined before the workshop day. The poll is anonymous: we store only your stance, any argument you write, and a random ID kept in your browser so that you can change your vote.</p>
 
     <div class="format reveal">
       <div class="fstep"><div class="t">01 · vote</div><div class="n">Pre-debate vote</div><small>Room and online</small></div>
@@ -275,7 +291,7 @@
       <div class="person"><img class="avatar" src="resources/avatars/cedric_le_gentil.jpg" alt="Cédric Le Gentil"><div class="nm">Cédric Le Gentil</div><div class="pos">Senior Researcher</div><div class="af">ETH Zurich</div><span class="role">Lead organizer</span></div>
     </div>
     <div class="people org-row reveal">
-      <div class="person"><img class="avatar" src="resources/avatars/haoming_zhang.jpg" alt="Haoming Zhang"><div class="nm">Haoming Zhang</div><div class="pos">Postdoctoral Researcher</div><div class="af">TU Munich</div><div class="roles"><span class="role">Lead organizer</span><span class="role">Corresponding organizer</span></div></div>
+      <div class="person"><img class="avatar" src="resources/avatars/haoming_zhang.jpg" alt="Haoming Zhang"><div class="nm">Haoming Zhang</div><div class="pos">Postdoctoral Researcher</div><div class="af">TU Munich</div><div class="roles"><span class="role">Lead organizer</span><a class="role" href="mailto:haoming.zhang@tum.de" title="Corresponding organizer: haoming.zhang@tum.de">Corresponding</a></div></div>
       <div class="person"><img class="avatar" src="resources/avatars/sebastian_barbas_laina.jpg" alt="Sebastián Barbas Laina"><div class="nm">Sebastián Barbas Laina</div><div class="pos">PhD Student</div><div class="af">TU Munich</div><span class="role">Lead organizer</span></div>
       <div class="person"><img class="avatar" src="resources/avatars/yannick_burkhardt.jpg" alt="Yannick Burkhardt"><div class="nm">Yannick Burkhardt</div><div class="pos">PhD Student</div><div class="af">TU Munich</div><span class="role">Lead organizer</span></div>
       <div class="person"><img class="avatar" src="resources/avatars/abhishek_goudar.jpg" alt="Abhishek Goudar"><div class="nm">Abhishek Goudar</div><div class="pos">Postdoctoral Researcher</div><div class="af">University of Toronto</div><span class="role">Scientific committee</span></div>
@@ -294,6 +310,7 @@
 </footer>
 
 <script src="assets/site.js"></script>
+<script src="assets/poll.js"></script>
 <script>
 // ---------- Hero: point cloud + factor graph + loop closure ----------
 (function () {

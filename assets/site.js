@@ -1,3 +1,6 @@
+// Apps Script web app behind the junior voices form and the pre-workshop poll (see tools/backend.gs).
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbzUBGtjIw-kRQjG-buHZx83VaBMiRCNKeRDBidfaOUbaMDCgTKj8z7ZlXkPJXphXLo0/exec';
+
 // ---------- Avatar colors ----------
 document.querySelectorAll('.avatar[data-h]').forEach(el => {
   const h = +el.dataset.h;
