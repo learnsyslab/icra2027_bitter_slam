@@ -35,7 +35,8 @@
   nav.top .links::-webkit-scrollbar { display: none; }
   nav.top .links a { color: rgba(255,255,255,.72); font-size: 15px; font-weight: 500; white-space: nowrap; }
   nav.top .links a:hover { color: #fff; }
-  @media (max-width: 760px) { nav.top .links a.opt { display: none; } nav.top .links { gap: 16px; } nav.top .wrap { height: 60px; gap: 16px; } nav.top .brand { font-size: 21px; } nav.top .links a { font-size: 14px; } }
+  @media (max-width: 1040px) { nav.top .links a.opt { display: none; } }
+  @media (max-width: 760px) { nav.top .links a.opt { display: none; } nav.top .links { gap: 16px; } nav.top .wrap { height: 60px; gap: 16px; } nav.top .brand { font-size: 21px; } nav.top .links a { font-size: 14px; } nav.top .links .wide { display: none; } }
 
   /* ---------- Hero ---------- */
   header.hero { position: relative; height: 100vh; min-height: 640px; max-height: 900px; overflow: hidden; }
@@ -68,7 +69,14 @@
   .legend .lg { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.42); }
   .legend .lg + div { margin-top: -2px; }
   .legend .lg.next { margin-top: 8px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,.08); }
-  @media (max-width: 760px) { .legend { display: none; } header.hero .content { bottom: 24px; } }
+  @media (max-width: 760px) {
+    .legend { display: none; }
+    /* phones: the scene gets its own band and the text flows below it instead of covering it */
+    header.hero { height: auto; min-height: 0; max-height: none; }
+    header.hero canvas, header.hero .shade { bottom: auto; height: 430px; }
+    header.hero .shade { background: linear-gradient(180deg, rgba(5,5,7,.55) 0%, rgba(5,5,7,0) 20%, rgba(5,5,7,0) 70%, var(--bg) 100%); }
+    header.hero .content { position: relative; bottom: auto; padding: 380px 0 32px; }
+  }
 
   /* ---------- Sections ---------- */
   section { padding: 96px 0; }

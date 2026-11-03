@@ -4,7 +4,8 @@ Website for the ICRA 2027 workshop **"Has the Bitter Lesson Finally Come for SLA
 
 Static site, no build step. `.nojekyll` tells GitHub Pages to serve it as-is.
 
-- `index.html`: main page (hero animation, motions, program, speakers, organizers)
+- `index.html`: main page (hero animation, motions, speakers, organizers)
+- `program.html`: program
 - `cfp.html`: call for papers
 - `junior.html`: junior voices call and submission form
 - `assets/site.css`, `assets/site.js`: styles, nav/scroll behavior and the backend URL (`ENDPOINT`) shared by all pages; `assets/poll.js`: the pre-workshop poll; `assets/junior.js`: the junior voices form
